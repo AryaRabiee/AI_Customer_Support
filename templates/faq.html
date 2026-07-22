@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>چت پشتیبانی - دستیار مشتری</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Navbar */
+        nav {
+            background: rgba(0,0,0,0.3);
+            padding: 1em 2em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+            font-size: 1em;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .nav-title {
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        /* Main Chat Area */
+        .main-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .chat-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+            width: 100%;
+            max-width: 800px;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        /* Message Wrapper */
+        .message-wrapper {
+            display: flex;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .message-wrapper.user {
+            justify-content: flex-end;
+        }
+
+        .message-wrapper.bot {
+            justify-content: flex-start;
+        }
+
+        /* Message Bubble */
+        .message-bubble {
+            max-width: 65%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            line-height: 1.5;
+            font-size: 0.95em;
+            display: inline-block;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .message-wrapper.user .message-bubble {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+
+        .message-wrapper.bot .message-bubble {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            border-bottom-left-radius: 4px;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+        }
+
+        .loading-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #667eea;
+            animation: bounce 1.4s infinite;
+        }
+
+        .loading-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .loading-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Quick Questions */
+        .quick-questions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            margin: 10px 0;
+            padding: 0 5px;
+        }
+
+        .quick-btn {
+            padding: 10px 14px;
+            background: #f0f0f0;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.85em;
+            font-family: inherit;
+            text-align: center;
+        }
+
+        .quick-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+        }
+
+        /* Input Area */
+        .input-area {
+            padding: 15px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-group {
+            flex: 1;
+            display: flex;
+            gap: 10px;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 24px;
+            font-size: 1em;
+            font-family: inherit;
+            transition: border-color 0.3s;
+            resize: none;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        input[type="text"]::placeholder {
+            color: #999;
+        }
+
+        .send-btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 24px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 1em;
+            min-width: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .send-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .send-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scaleY(1);
+            }
+            40% {
+                transform: scaleY(1.5);
+            }
+        }
+
+        /* Scrollbar */
+        .messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        .messages::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .chat-container {
+                height: 550px;
+            }
+
+            .message-bubble {
+                max-width: 75%;
+            }
+
+            .quick-questions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .chat-container {
+                height: 500px;
+                max-width: 100%;
+                border-radius: 0;
+            }
+
+            .message-bubble {
+                max-width: 85%;
+                font-size: 0.9em;
+                padding: 10px 14px;
+            }
+
+            .quick-questions {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .send-btn {
+                min-width: 70px;
+                padding: 10px 16px;
+                font-size: 0.9em;
+            }
+
+            input[type="text"] {
+                padding: 10px 14px;
+                font-size: 16px;
+            }
+
+            .nav-title {
+                font-size: 1em;
+            }
+
+            nav {
+                padding: 0.7em 1em;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .message-bubble {
+                max-width: 90%;
+            }
+
+            .quick-btn {
+                padding: 8px 12px;
+                font-size: 0.8em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-left">
+            <a href="/" class="back-btn">← بازگشت</a>
+            <div class="nav-title">💬 چت پشتیبانی</div>
+        </div>
+    </nav>
+
+    <!-- Chat Container -->
+    <div class="main-container">
+        <div class="chat-container">
+            <div class="chat-header">
+                🤖 دستیار مشتری هوشمند
+            </div>
+
+            <div class="messages" id="messages">
+                <div class="message-wrapper bot">
+                    <div class="message-bubble">
+                        سلام! 👋 من دستیار مشتری هوشمند شما هستم. چطور می‌تونم کمکتون کنم؟
+                    </div>
+                </div>
+
+                <div class="quick-questions" id="quickQuestions"></div>
+            </div>
+
+            <div class="input-area">
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="userInput" 
+                        placeholder="سوال خود را بنویسید..."
+                        autocomplete="off"
+                    >
+                    <button id="sendBtn" class="send-btn" onclick="sendMessage()">📤</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    /* =========================
+       API Configuration
+    ========================= */
+
+    const API_URL =
+        "http://localhost:8000/api/v1";
+
+
+    /* =========================
+       DOM Elements
+    ========================= */
+
+    const messagesDiv =
+        document.getElementById("messages");
+
+    const userInput =
+        document.getElementById("userInput");
+
+    const sendBtn =
+        document.getElementById("sendBtn");
+
+    const quickQuestionsDiv =
+        document.getElementById("quickQuestions");
+
+
+    /* =========================
+       Streaming Speed
+       
+       30  = Fast
+       50  = Normal
+       80  = Slow
+       100 = Very Slow
+    ========================= */
+
+    const STREAM_DELAY = 60;
+
+
+    /* =========================
+       Quick Questions
+    ========================= */
+
+    const quickQuestions = [
+
+        "روند بازگرداندن چگونه است؟",
+
+        "آیا حمل‌ونقل رایگان دارید؟",
+
+        "چطور تماس بگیرم؟",
+
+        "شرایط ضمانت چیست؟"
+
+    ];
+
+
+    /* =========================
+       Load Quick Questions
+    ========================= */
+
+    function loadQuickQuestions() {
+
+        quickQuestions.forEach(
+            (question) => {
+
+                const btn =
+                    document.createElement("button");
+
+                btn.className =
+                    "quick-btn";
+
+                btn.textContent =
+                    question;
+
+                btn.onclick =
+                    () => {
+
+                        userInput.value =
+                            question;
+
+                        sendMessage();
+
+                    };
+
+                quickQuestionsDiv
+                    .appendChild(btn);
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       Remove Quick Questions
+    ========================= */
+
+    function removeQuickQuestions() {
+
+        quickQuestionsDiv.innerHTML =
+            "";
+
+    }
+
+
+    /* =========================
+       Add Message
+    ========================= */
+
+    function addMessage(
+        text,
+        role
+    ) {
+
+        const wrapper =
+            document.createElement("div");
+
+        wrapper.className =
+            `message-wrapper ${role}`;
+
+        const bubble =
+            document.createElement("div");
+
+        bubble.className =
+            "message-bubble";
+
+        bubble.textContent =
+            text;
+
+        wrapper.appendChild(
+            bubble
+        );
+
+        messagesDiv.appendChild(
+            wrapper
+        );
+
+        scrollToBottom();
+
+        return wrapper;
+
+    }
+
+
+    /* =========================
+       Update Message
+    ========================= */
+
+    function updateMessage(
+        wrapper,
+        text
+    ) {
+
+        if (!wrapper) {
+            return;
+        }
+
+        const bubble =
+            wrapper.querySelector(
+                ".message-bubble"
+            );
+
+        if (!bubble) {
+            return;
+        }
+
+        bubble.textContent =
+            text;
+
+        scrollToBottom();
+
+    }
+
+
+    /* =========================
+       Scroll Chat
+    ========================= */
+
+    function scrollToBottom() {
+
+        messagesDiv.scrollTop =
+            messagesDiv.scrollHeight;
+
+    }
+
+
+    /* =========================
+       Delay Function
+    ========================= */
+
+    function delay(ms) {
+
+        return new Promise(
+            resolve =>
+                setTimeout(
+                    resolve,
+                    ms
+                )
+        );
+
+    }
+
+
+    /* =========================
+       Send Message
+       With Streaming
+    ========================= */
+
+    async function sendMessage() {
+
+        const message =
+            userInput.value.trim();
+
+        if (!message) {
+            return;
+        }
+
+
+        /* =========================
+           Remove Quick Questions
+        ========================= */
+
+        if (
+            quickQuestionsDiv
+                .children
+                .length > 0
+        ) {
+
+            removeQuickQuestions();
+
+        }
+
+
+        /* =========================
+           Add User Message
+        ========================= */
+
+        addMessage(
+            message,
+            "user"
+        );
+
+
+        /* =========================
+           Clear Input
+        ========================= */
+
+        userInput.value =
+            "";
+
+
+        /* =========================
+           Disable Send Button
+        ========================= */
+
+        sendBtn.disabled =
+            true;
+
+
+        /* =========================
+           Create Empty Bot Message
+        ========================= */
+
+        const botMessage =
+            addMessage(
+                "",
+                "bot"
+            );
+
+
+        /* =========================
+           Add Streaming Cursor
+        ========================= */
+
+        botMessage
+            .querySelector(
+                ".message-bubble"
+            )
+            .classList
+            .add(
+                "streaming"
+            );
+
+
+        try {
+
+            /* =========================
+               Send Request
+            ========================= */
+
+            const response =
+                await fetch(
+                    `${API_URL}/faq`,
+                    {
+
+                        method: "POST",
+
+                        headers: {
+
+                            "Content-Type":
+                                "application/json"
+
+                        },
+
+                        body:
+                            JSON.stringify({
+
+                                user_message:
+                                    message
+
+                            })
+
+                    }
+                );
+
+
+            /* =========================
+               Check Response
+            ========================= */
+
+            if (!response.ok) {
+
+                throw new Error(
+                    "خطا در ارتباط با سرور"
+                );
+
+            }
+
+
+            /* =========================
+               Check Streaming Support
+            ========================= */
+
+            if (!response.body) {
+
+                throw new Error(
+                    "سرور از Streaming پشتیبانی نمی‌کند"
+                );
+
+            }
+
+
+            /* =========================
+               Get Reader
+            ========================= */
+
+            const reader =
+                response.body
+                    .getReader();
+
+
+            /* =========================
+               UTF-8 Decoder
+            ========================= */
+
+            const decoder =
+                new TextDecoder(
+                    "utf-8"
+                );
+
+
+            /* =========================
+               Full Response
+            ========================= */
+
+            let fullResponse =
+                "";
+
+
+            /* =========================
+               Buffer
+            ========================= */
+
+            let buffer =
+                "";
+
+
+            /* =========================
+               Read Stream
+            ========================= */
+
+            while (true) {
+
+                const {
+                    done,
+                    value
+                } =
+                    await reader.read();
+
+
+                /* =========================
+                   Stream Finished
+                ========================= */
+
+                if (done) {
+
+                    break;
+
+                }
+
+
+                /* =========================
+                   Decode Chunk
+                ========================= */
+
+                buffer +=
+                    decoder.decode(
+                        value,
+                        {
+                            stream: true
+                        }
+                    );
+
+
+                /* =========================
+                   Split NDJSON Lines
+                ========================= */
+
+                const lines =
+                    buffer.split(
+                        "\n"
+                    );
+
+
+                /* =========================
+                   Keep Last Incomplete Line
+                ========================= */
+
+                buffer =
+                    lines.pop() || "";
+
+
+                /* =========================
+                   Process Complete Lines
+                ========================= */
+
+                for (
+                    const line
+                    of lines
+                ) {
+
+                    if (
+                        !line.trim()
+                    ) {
+
+                        continue;
+
+                    }
+
+
+                    try {
+
+                        const data =
+                            JSON.parse(
+                                line
+                            );
+
+
+                        /* =========================
+                           Handle Server Error
+                        ========================= */
+
+                        if (
+                            data.error
+                        ) {
+
+                            throw new Error(
+                                data.error
+                            );
+
+                        }
+
+
+                        /* =========================
+                           Append New Chunk
+                        ========================= */
+
+                        if (
+                            data.chunk
+                        ) {
+
+                            /*
+                            اضافه کردن chunk جدید
+                            به پاسخ قبلی
+                            */
+
+                            fullResponse +=
+                                data.chunk;
+
+
+                            /*
+                            کمی صبر می‌کنیم
+                            تا Streaming آهسته‌تر
+                            و طبیعی‌تر دیده شود
+                            */
+
+                            await delay(
+                                STREAM_DELAY
+                            );
+
+
+                            /*
+                            Update UI
+                            */
+
+                            updateMessage(
+                                botMessage,
+                                fullResponse
+                            );
+
+                        }
+
+
+                    } catch (parseError) {
+
+                        console.error(
+                            "JSON Parse Error:",
+                            parseError
+                        );
+
+                    }
+
+                }
+
+            }
+
+
+            /* =========================
+               Process Remaining Buffer
+            ========================= */
+
+            if (
+                buffer.trim()
+            ) {
+
+                try {
+
+                    const data =
+                        JSON.parse(
+                            buffer
+                        );
+
+
+                    if (
+                        data.chunk
+                    ) {
+
+                        fullResponse +=
+                            data.chunk;
+
+
+                        await delay(
+                            STREAM_DELAY
+                        );
+
+
+                        updateMessage(
+                            botMessage,
+                            fullResponse
+                        );
+
+                    }
+
+                } catch (error) {
+
+                    console.error(
+                        "Final JSON Parse Error:",
+                        error
+                    );
+
+                }
+
+            }
+
+
+            /* =========================
+               Remove Streaming Cursor
+            ========================= */
+
+            botMessage
+                .querySelector(
+                    ".message-bubble"
+                )
+                .classList
+                .remove(
+                    "streaming"
+                );
+
+
+        } catch (error) {
+
+
+            /* =========================
+               Remove Streaming Cursor
+            ========================= */
+
+            botMessage
+                .querySelector(
+                    ".message-bubble"
+                )
+                .classList
+                .remove(
+                    "streaming"
+                );
+
+
+            /* =========================
+               Show Error
+            ========================= */
+
+            updateMessage(
+                botMessage,
+                `❌ خطا: ${error.message}`
+            );
+
+
+            console.error(
+                "Streaming Error:",
+                error
+            );
+
+
+        } finally {
+
+
+            /* =========================
+               Enable Send Button
+            ========================= */
+
+            sendBtn.disabled =
+                false;
+
+
+            /* =========================
+               Focus Input
+            ========================= */
+
+            userInput.focus();
+
+        }
+
+    }
+
+
+    /* =========================
+       Enter Key
+    ========================= */
+
+    userInput.addEventListener(
+        "keypress",
+
+        (event) => {
+
+            if (
+                event.key === "Enter"
+                &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                sendMessage();
+
+            }
+
+        }
+
+    );
+
+
+    /* =========================
+       Send Button Click
+    ========================= */
+
+    sendBtn.addEventListener(
+        "click",
+        sendMessage
+    );
+
+
+    /* =========================
+       Initialize
+    ========================= */
+
+    loadQuickQuestions();
+
+    userInput.focus();
+
+</script>
+
+</body>
+</html>
