@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api.routes.fag import router as fag_router
+from app.api.routes.faq import router as fag_router
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
