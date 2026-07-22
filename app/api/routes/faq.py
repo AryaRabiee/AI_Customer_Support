@@ -1,5 +1,5 @@
 from fastapi import APIRouter , HTTPException
-from schemas.fag import FAGRequest , FAQResponse
+from app.schemas.faq import FAGRequest , FAQResponse
 from services.llm.fag_agent import rag_agent
 from fastapi.responses import StreamingResponse
 import json
