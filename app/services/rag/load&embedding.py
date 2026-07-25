@@ -48,5 +48,3 @@ def embedding_docs(file):
 
 
 docs = embedding_docs(file_path)
-
-
