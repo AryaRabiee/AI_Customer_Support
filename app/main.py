@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.routes.faq import router as fag_router
+from api.routes.faq import router as fag_router
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -37,7 +37,7 @@ async def health_check():
 async def root():
     return FileResponse(file_path/"templates/home.html")
 
-@app.get("/fag")
+@app.get("/faq")
 async def support_page():
     return FileResponse(file_path/"templates/faq.html")
 
