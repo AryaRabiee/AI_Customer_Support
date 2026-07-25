@@ -1,6 +1,7 @@
 from fastapi import APIRouter , HTTPException
-from app.schemas.faq import FAGRequest , FAQResponse
+from schemas.faq import FAGRequest , FAQResponse
 from services.llm.fag_agent import rag_agent
+from services.llm.hybrid_search import hybrid_search_weighted_rrf
 from fastapi.responses import StreamingResponse
 import json
 
@@ -14,7 +15,7 @@ async def answer_user_question(request: FAGRequest):
     async def generate():
 
         try:
-            for chunk in rag_agent(request.user_message):
+            for chunk in hybrid_search_weighted_rrf(request.user_message):
 
                 if chunk:
                     yield json.dumps(
