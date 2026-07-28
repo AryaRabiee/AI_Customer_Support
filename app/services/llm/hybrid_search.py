@@ -26,50 +26,50 @@ RRF_K = 10
 # )
 
 
-embeddings = OpenAIEmbeddings(
-    model="text-embedding-3-small",
-    api_key=api_get_embedding,
-    base_url="https://openrouter.ai/api/v1"
-)
+# embeddings = OpenAIEmbeddings(
+#     model="text-embedding-3-small",
+#     api_key=api_get_embedding,
+#     base_url="https://openrouter.ai/api/v1"
+# )
 
-vectorstore = Chroma(
-    persist_directory=CHROMA_DIR,
-    embedding_function=embeddings
-)
+# vectorstore = Chroma(
+#     persist_directory=CHROMA_DIR,
+#     embedding_function=embeddings
+# )
 
-semantic_retriever = vectorstore.as_retriever(
-    search_kwargs={
-        "k": SEMANTIC_K
-    }
-)
+# semantic_retriever = vectorstore.as_retriever(
+#     search_kwargs={
+#         "k": SEMANTIC_K
+#     }
+# )
 
-all_docs = vectorstore.get()
+# all_docs = vectorstore.get()
 
-corpus = all_docs["documents"]
+# corpus = all_docs["documents"]
 
-print(f"✅ Corpus loaded: {len(corpus)} documents")
+# print(f"✅ Corpus loaded: {len(corpus)} documents")
 
-normalizer = Normalizer()
+# normalizer = Normalizer()
 
-normalized_corpus = [
-    normalizer.normalize(doc)
-    for doc in corpus
-]
-
-
-tokenized_corpus = [
-    word_tokenize(doc)
-    for doc in normalized_corpus
-]
+# normalized_corpus = [
+#     normalizer.normalize(doc)
+#     for doc in corpus
+# ]
 
 
-print(f"✅ Corpus tokenized: {len(tokenized_corpus)} documents")
+# tokenized_corpus = [
+#     word_tokenize(doc)
+#     for doc in normalized_corpus
+# ]
+
+
+# print(f"✅ Corpus tokenized: {len(tokenized_corpus)} documents")
     
-bm25 = BM25()
+# bm25 = BM25()
 
-bm25.index(
-    tokenized_corpus
-)
+# bm25.index(
+#     tokenized_corpus
+# )
 
 
 print("✅ BM25S index is ready")
@@ -81,60 +81,60 @@ def rrf_score(rank: int,rrf_k: int = RRF_K):
 
 def hybrid_search_weighted_rrf(message: str,k: int = 5,alpha: float = ALPHA):
 
-    semantic_docs = semantic_retriever.invoke(message)
+    # semantic_docs = semantic_retriever.invoke(message)
         
-    print(f"✅ Semantic results:{len(semantic_docs)}")
+    # print(f"✅ Semantic results:{len(semantic_docs)}")
 
-    normalized_query = normalizer.normalize(message)
-    tokenized_query = word_tokenize(normalized_query)
+    # normalized_query = normalizer.normalize(message)
+    # tokenized_query = word_tokenize(normalized_query)
         
 
-    print(f"✅ Tokenized query:{tokenized_query}")
+    # print(f"✅ Tokenized query:{tokenized_query}")
 
 
-    results, scores = bm25.retrieve(
-        [tokenized_query],
-        k=BM25_K
-    )
-    print(f"resultss {results}")
-    print(f"scores {scores}")
-    keyword_indices = results[0]
+    # results, scores = bm25.retrieve(
+    #     [tokenized_query],
+    #     k=BM25_K
+    # )
+    # print(f"resultss {results}")
+    # print(f"scores {scores}")
+    # keyword_indices = results[0]
 
 
-    keyword_results = [
-        corpus[index]
-        for index in keyword_indices
-    ]
+    # keyword_results = [
+    #     corpus[index]
+    #     for index in keyword_indices
+    # ]
 
 
-    print(f"✅ BM25S results:{len(keyword_results)}")
+    # print(f"✅ BM25S results:{len(keyword_results)}")
         
 
     rrf_scores = {}
 
 
-    for rank, doc in enumerate(semantic_docs,start=1):
+    # for rank, doc in enumerate(semantic_docs,start=1):
         
 
-        key = doc.page_content
+    #     key = doc.page_content
 
 
-        semantic_rrf = (alpha*rrf_score(rank))
+    #     semantic_rrf = (alpha*rrf_score(rank))
 
-        rrf_scores[key] = (rrf_scores.get(key,0)+semantic_rrf)
-
-
-
-    for rank, text in enumerate(keyword_results,start=1):
-
-        key = text
+    #     rrf_scores[key] = (rrf_scores.get(key,0)+semantic_rrf)
 
 
-        bm25_rrf = ((1 - alpha)*rrf_score(rank))
 
-        rrf_scores[key] = (rrf_scores.get(key,0)+bm25_rrf)
+    # for rank, text in enumerate(keyword_results,start=1):
 
-    ranked_docs = sorted(rrf_scores.items(),key=lambda item: item[1],reverse=True)
+    #     key = text
+
+
+    #     bm25_rrf = ((1 - alpha)*rrf_score(rank))
+
+    #     rrf_scores[key] = (rrf_scores.get(key,0)+bm25_rrf)
+
+    # ranked_docs = sorted(rrf_scores.items(),key=lambda item: item[1],reverse=True)
     # candidate_docs = ranked_docs[:10]
     # documents = [
     #     doc
@@ -156,41 +156,41 @@ def hybrid_search_weighted_rrf(message: str,k: int = 5,alpha: float = ALPHA):
     # print(f"RRF Candidates: {len(candidate_docs)}")
 
     # print(f"RRF Score first is {rrf_scores}")
-    final_results = ranked_docs[:5]
-    print(f"✅ Final RRF results:{len(final_results)}documents")
-    print(f"✅ RRF Scores:{final_results}documents") 
+    # final_results = ranked_docs[:5]
+    # print(f"✅ Final RRF results:{len(final_results)}documents")
+    # print(f"✅ RRF Scores:{final_results}documents") 
 
 
-    context = "\n\n".join(
-        f"[{i+1}] {doc}"
-        for i, (doc, score) in enumerate(final_results)
-    )
+    # context = "\n\n".join(
+    #     f"[{i+1}] {doc}"
+    #     for i, (doc, score) in enumerate(final_results)
+    # )
 
 
 
 
-    prompt = f"""
-تو یک پشتیبان مشتری حرفه‌ای برای شرکت آریا تک هستی.
+#     prompt = f"""
+# تو یک پشتیبان مشتری حرفه‌ای برای شرکت آریا تک هستی.
 
-Context:
-{context}
+# Context:
+# {context}
 
-سؤال:
-{message}
+# سؤال:
+# {message}
 
-اگر پاسخ سؤال در Context وجود ندارد، بگو:
+# اگر پاسخ سؤال در Context وجود ندارد، بگو:
 
-«متأسفانه اطلاعات کافی برای پاسخ به این سؤال ندارم.»
+# «متأسفانه اطلاعات کافی برای پاسخ به این سؤال ندارم.»
 
-پاسخ کوتاه و دقیق:
-"""
+# پاسخ کوتاه و دقیق:
+# """
 
     model = ChatOpenRouter(
         model="openai/gpt-oss-20b",
         api_key=api_get_embedding
     )
 
-    for chunk in model.stream(prompt):
-        if chunk.content:
+    # for chunk in model.stream(prompt):
+    #     if chunk.content:
 
-            yield chunk.content
+    #         yield chunk.content
