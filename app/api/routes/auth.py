@@ -48,7 +48,6 @@ def login(data : LoginRequest ,response : Response, db : Session = Depends(get_d
 @router.post("/signup")
 def signup(data: SignupRequest, db: Session = Depends(get_db)):
     try:
-        # چک کن ایمیل قبلاً ثبت شده یا نه
         existing_user = db.query(User).filter(User.email == data.email).first()
         if existing_user:
             raise HTTPException(
@@ -56,7 +55,6 @@ def signup(data: SignupRequest, db: Session = Depends(get_db)):
                 detail="این ایمیل قبلاً ثبت شده است"
             )
         
-        # کاربر جدید
         hashed_password = hash_password(data.password)
         new_user = User(
             email=data.email,
@@ -81,7 +79,7 @@ def signup(data: SignupRequest, db: Session = Depends(get_db)):
             detail="خطا در پایگاه داده"
         )
 
-@router.get("/me")  # ✅ اضافه کن
+@router.get("/me")     
 def get_me(current_user: User = Depends(get_current_user)):
     return {
         "user_id": current_user.user_id,
@@ -89,7 +87,7 @@ def get_me(current_user: User = Depends(get_current_user)):
         "email": current_user.email
     }
 
-@router.post("/logout")  # ✅ اضافه کن
+@router.post("/logout")  
 def logout(response: Response):
     response.delete_cookie("access_token")
     return {"message": "Logged out"}
