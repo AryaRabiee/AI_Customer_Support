@@ -182,4 +182,4 @@ cython_debug/
 .cursorignore
 .cursorindexingignore
 ./test.py
-./app/test.py
+app/test.py
