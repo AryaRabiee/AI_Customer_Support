@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from api.routes.faq import router as fag_router
+from api.routes.auth import router as auth_router
+from api.routes.users import router as users_router
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -26,6 +28,14 @@ app.include_router(
     fag_router,
     prefix="/api/v1"
 )
+app.include_router(
+    auth_router,
+    prefix = "/api"
+)
+app.include_router(
+    users_router,
+    prefix = "/api"
+)
 
 @app.get("/health")
 async def health_check():
@@ -34,10 +44,22 @@ async def health_check():
     }
 
 @app.get("/")
-async def root():
+async def home():
     return FileResponse(file_path/"templates/home.html")
 
 @app.get("/faq")
-async def support_page():
+async def faq_page():
     return FileResponse(file_path/"templates/faq.html")
 
+
+@app.get("/test")
+async def test_page():
+    return FileResponse(file_path/"templates/test_home.html")
+
+@app.get("/login")
+async def login_page():
+    return FileResponse(file_path/"templates/login.html")
+
+@app.get("/support")
+async def support_page():
+    return FileResponse(file_path/"templates/support.html")
