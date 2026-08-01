@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from api.routes.faq import router as fag_router
 from api.routes.auth import router as auth_router
 from api.routes.users import router as users_router
+from api.routes.chat import router as chat_router
 from dotenv import load_dotenv
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -35,6 +36,10 @@ app.include_router(
 app.include_router(
     users_router,
     prefix = "/api"
+)
+app.include_router(
+    chat_router,
+    prefix="/api"
 )
 
 @app.get("/health")
