@@ -1,7 +1,7 @@
 from fastapi import APIRouter , HTTPException
 from schemas.faq import FAGRequest , FAQResponse
 from services.llm.fag_agent import rag_agent
-from services.llm.hybrid_search import hybrid_search_weighted_rrf
+from services.rag.hybrid_search import hybrid_search_weighted_rrf
 from fastapi.responses import StreamingResponse
 import json
 
