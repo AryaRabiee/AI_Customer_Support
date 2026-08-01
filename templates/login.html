@@ -329,7 +329,7 @@
                 if (response.ok) {
                     showMessage('loginMsg', '✓ ورود موفق! درحال انتقال...', 'success');
                     setTimeout(() => {
-                        window.location.href = '/test';
+                        window.location.href = '/support';
                     }, 1500);
                 } else {
                     const error = await response.json();

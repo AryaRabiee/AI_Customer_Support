@@ -94,7 +94,7 @@
             align-items: start;
         }
 
-        /* ---- CENTER: CHAT (بزرگ‌تر) ---- */
+        /* ---- CENTER: CHAT ---- */
         .chat-container {
             background: white;
             border-radius: 28px;
@@ -153,20 +153,83 @@
             padding: 24px 28px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
             background: #fafcff;
         }
 
+        /* ===== چیدمان پیام‌ها (کاربر راست، ربات چپ) ===== */
         .message {
             display: flex;
+            align-items: flex-end;
             animation: slideUp 0.25s ease-out;
+            gap: 12px;
+            margin-bottom: 8px;
         }
+
+        /* کاربر → راست */
         .message.user {
-            justify-content: flex-start;
+            justify-content: flex-end;   /* کل محتوا در ابتدای راست */
+            flex-direction: row-reverse;   /* آواتار چپ، متن راست */
         }
+
+        /* ربات → چپ */
         .message.bot {
-            justify-content: flex-end;
+            justify-content: flex-end;     /* کل محتوا در انتهای چپ */
+            flex-direction: row;           /* آواتار راست، متن چپ */
         }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 65%;
+        }
+
+        .message.user .message-content {
+            align-items: flex-end;         /* متن به راست چسبیده */
+        }
+
+        .message.bot .message-content {
+            align-items: flex-start;       /* متن به چپ چسبیده */
+        }
+
+        .message-bubble {
+            padding: 13px 20px;
+            border-radius: 16px;
+            word-wrap: break-word;
+            line-height: 1.5;
+            font-size: 0.95rem;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        }
+
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, #4a6cf7 0%, #6a3de8 100%);
+            color: white;
+            border-radius: 18px 18px 6px 18px;
+        }
+
+        .message.bot .message-bubble {
+            background: white;
+            color: #2d3748;
+            border-radius: 18px 18px 18px 6px;
+            border: 1px solid #eef2f6;
+        }
+
+        .message-time {
+            font-size: 0.65rem;
+            opacity: 0.5;
+            padding: 0 8px;
+            margin-top: 2px;
+        }
+
+        .message.user .message-time {
+            text-align: right;
+        }
+
+        .message.bot .message-time {
+            text-align: left;
+        }
+
         @keyframes slideUp {
             from {
                 opacity: 0;
@@ -178,33 +241,6 @@
             }
         }
 
-        .message-bubble {
-            max-width: 75%;
-            padding: 13px 20px;
-            border-radius: 16px;
-            word-wrap: break-word;
-            line-height: 1.5;
-            font-size: 0.95rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-        }
-        .message.user .message-bubble {
-            background: linear-gradient(135deg, #4a6cf7 0%, #6a3de8 100%);
-            color: white;
-            border-radius: 18px 18px 6px 18px;
-        }
-        .message.bot .message-bubble {
-            background: white;
-            color: #2d3748;
-            border-radius: 18px 18px 18px 6px;
-            border: 1px solid #eef2f6;
-        }
-
-        .message-time {
-            font-size: 0.65rem;
-            opacity: 0.5;
-            margin-top: 5px;
-            padding: 0 8px;
-        }
         .bot-avatar,
         .user-avatar {
             width: 36px;
@@ -216,16 +252,15 @@
             font-weight: 700;
             font-size: 1rem;
             flex-shrink: 0;
+            margin-bottom: 4px;
         }
         .bot-avatar {
             background: linear-gradient(135deg, #4a6cf7, #6a3de8);
             color: white;
-            margin-left: 12px;
         }
         .user-avatar {
             background: #4a6cf7;
             color: white;
-            margin-right: 12px;
         }
 
         .empty-state {
@@ -334,7 +369,7 @@
             }
         }
 
-        /* ===== SIDEBAR LEFT ===== */
+        /* ===== SIDEBAR ===== */
         .sidebar {
             background: transparent;
             display: flex;
@@ -390,7 +425,7 @@
             box-shadow: 0 4px 14px rgba(74, 108, 247, 0.25);
         }
 
-        /* ===== RIGHT PANEL: نوشته‌های خوشگل ===== */
+        /* ===== RIGHT PANEL ===== */
         .info-panel {
             display: flex;
             flex-direction: column;
@@ -642,7 +677,7 @@
     <!-- ===== MAIN ===== -->
     <div class="main-container">
 
-        <!-- ===== SIDEBAR چپ (دکمه‌های سریع) ===== -->
+        <!-- ===== SIDEBAR ===== -->
         <aside class="sidebar">
             <div class="quick-card">
                 <h4>⚡ دسترسی سریع</h4>
@@ -663,7 +698,7 @@
             </div>
         </aside>
 
-        <!-- ===== CHAT (وسط، بزرگ‌تر) ===== -->
+        <!-- ===== CHAT ===== -->
         <div class="chat-container">
             <div class="chat-header">
                 <h2>
@@ -692,7 +727,7 @@
             </div>
         </div>
 
-        <!-- ===== RIGHT PANEL: نوشته‌های خوشگل و توضیحات پشتیبانی ===== -->
+        <!-- ===== RIGHT PANEL ===== -->
         <aside class="info-panel">
 
             <div class="info-card">
@@ -790,25 +825,24 @@
             if (!msg) return;
 
             const container = document.getElementById('messagesContainer');
-            // remove empty state
             if (container.querySelector('.empty-state')) container.innerHTML = '';
 
-            // user message
+            // USER MESSAGE (right side)
             const userDiv = document.createElement('div');
             userDiv.className = 'message user';
             userDiv.innerHTML = `
-                <div>
+                <div class="user-avatar">👤</div>
+                <div class="message-content">
                     <div class="message-bubble">${escapeHtml(msg)}</div>
                     <div class="message-time">${getTime()}</div>
                 </div>
-                <div class="user-avatar">👤</div>
             `;
             container.appendChild(userDiv);
             input.value = '';
             input.style.height = 'auto';
             container.scrollTop = container.scrollHeight;
 
-            // typing indicator
+            // Typing indicator (bot, left side)
             const typingDiv = document.createElement('div');
             typingDiv.className = 'message bot';
             typingDiv.id = 'typingIndicator';
@@ -836,11 +870,12 @@
                 document.getElementById('typingIndicator')?.remove();
 
                 setTimeout(() => {
+                    // BOT MESSAGE (left side)
                     const botDiv = document.createElement('div');
                     botDiv.className = 'message bot';
                     botDiv.innerHTML = `
                         <div class="bot-avatar">🤖</div>
-                        <div>
+                        <div class="message-content">
                             <div class="message-bubble">${formatMessage(data.response)}</div>
                             <div class="message-time">${getTime()}</div>
                         </div>
@@ -855,7 +890,7 @@
                 errDiv.className = 'message bot';
                 errDiv.innerHTML = `
                     <div class="bot-avatar">🤖</div>
-                    <div>
+                    <div class="message-content">
                         <div class="message-bubble">❌ متأسفانه خطایی رخ داد. لطفاً دوباره تلاش کنید.</div>
                         <div class="message-time">${getTime()}</div>
                     </div>
