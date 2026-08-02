@@ -5,7 +5,10 @@ from pydantic import BaseModel, Field
 class SupportState(TypedDict):
     user_message: str
     next_agent: Literal["chat", "rag", "database"]
-    response : str
+    response: str
+
+    intent: str | None
+    order_id: int | None
 
 class SupervisorDecision(BaseModel):
     next_agent: Literal["chat", "rag", "database"] = Field(
