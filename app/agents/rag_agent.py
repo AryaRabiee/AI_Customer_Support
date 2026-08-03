@@ -1,5 +1,6 @@
 from graph.state import SupportState
 from services.rag.hybrid_search import hybrid_search_weighted_rrf
+from langchain_core.messages import AIMessage
 
 
 def rag_node(state: SupportState):
@@ -17,5 +18,8 @@ def rag_node(state: SupportState):
     print("RAG ANSWER:", answer)
 
     return {
+        "messages": [
+            AIMessage(content=answer)
+        ],
         "response": answer
     }
