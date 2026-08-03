@@ -34,7 +34,8 @@ class Order(Base):
 
     user_id = Column(Integer,ForeignKey("users.user_id"))
         
-    
+    products = Column(String(255),nullable=False)
+      
     status = Column(String(50),nullable=False)
         
         

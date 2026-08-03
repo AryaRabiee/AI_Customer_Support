@@ -2,7 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import session , sessionmaker , declarative_base
 import os
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = "postgresql://postgres:arya1384@localhost:5432/ai_support_database"
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False , autoflush=False, bind=engine)
@@ -16,8 +16,3 @@ def get_db():
     finally:
         db.close()
 
-from sqlalchemy import text
-
-with engine.connect() as connection:
-    result = connection.execute(text("SELECT 1"))
-    print(result.scalar())
