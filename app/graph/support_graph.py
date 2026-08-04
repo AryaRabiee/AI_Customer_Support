@@ -7,11 +7,12 @@ from agents.db_agent import extract_data
 from agents.order_status_agent import order_status_node
 from agents.order_detail import order_detail_node
 from langchain_core.messages import HumanMessage
-from langgraph.checkpoint.memory import MemorySaver
+from langgraph.checkpoint.memory import InMemorySaver
 
 
 
 graph = StateGraph(SupportState)
+memory = InMemorySaver()
 
 graph.add_node("supervisor", supervisor_node)
 graph.add_node("rag", rag_node)
@@ -51,15 +52,27 @@ graph.add_edge("order_status", END)
 graph.add_edge("order_details", END)
 
 
-app = graph.compile()
+app = graph.compile(
+    checkpointer=memory
+)
 
 
-def run_support_agent(user_message: str,user_id: int):
+def run_support_agent(user_message: str,user_id: int , thread_id):
     
-    result = app.invoke({
-        "user_message": user_message,
-        "user_id": user_id
-    })
+    result = app.invoke(
+        {
+            "user_message": user_message,
+            "user_id": user_id,
+            "messages": [
+                HumanMessage(content=user_message)
+            ]
+        },
+        config={
+            "configurable": {
+                "thread_id": thread_id
+            }
+        }
+    )
 
     print("result:", result)
 

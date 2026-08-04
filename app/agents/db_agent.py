@@ -18,15 +18,16 @@ output_model = model.with_structured_output(ExtractData)
 def extract_data(state: SupportState):
     print("start func extract_data")
 
-    user_message = state["user_message"]
+    messages = state["messages"]
 
     result = model.invoke([
         SystemMessage(content=EXTRACT_DATA_PROMPT),
-        HumanMessage(content=user_message)
+        *messages
     ])
 
     content = result.content
     print(f"content is {content}")
+
     intent_match = re.search(
         r'intent\s*=\s*"([^"]+)"',
         content

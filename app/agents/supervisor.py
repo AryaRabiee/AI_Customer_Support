@@ -2,6 +2,7 @@ from langchain_openrouter import ChatOpenRouter
 from graph.state import SupervisorDecision , SupportState
 from utils.prompts import SUPERVISOR_PROMPT
 import os
+from langchain.messages import AIMessage , SystemMessage
 
 
 api_key = os.getenv("EMBEDDING_API_KEY")
@@ -24,23 +25,27 @@ def supervisor_node(state: SupportState):
 
     user_id = state["user_id"]
 
+    messages = state["messages"]
+    print("MESSAGES", messages)
+
     print("User ID:", user_id)
     print("2 - calling model")
 
     result = model.invoke([
-        {
-            "role": "system",
-            "content": SUPERVISOR_PROMPT
-        },
-        {
-            "role": "user",
-            "content": state["user_message"]
-        }
+        SystemMessage(content=SUPERVISOR_PROMPT),
+        *messages
     ])
 
     print("3 - model responded")
-    print("result supervisor_node :", result.content.strip())
+    print("RAW SUPERVISOR RESPONSE:", repr(result.content))
+
+    decision = result.content.strip()
+
+    print("result supervisor_node :", decision)
+
+    if decision not in ["rag", "chat", "database"]:
+        raise ValueError(f"Invalid supervisor decision: {decision}")
 
     return {
-        "next_agent": result.content.strip()
+        "next_agent": decision
     }   

@@ -18,14 +18,15 @@ model = ChatOpenRouter(
 
 def chat_node(state: SupportState):
 
-    message = state["user_message"]
-
     response = model.invoke([
         SystemMessage(content=CHAT_PROMPT),
-        HumanMessage(content=message)
+        *state["messages"]
     ])
 
     return {
-        "response": response.content
+        "response": response.content,
+        "messages": [
+            AIMessage(content=response.content)
+        ]
     }
 
