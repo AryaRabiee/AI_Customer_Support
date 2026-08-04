@@ -11,7 +11,7 @@ router = APIRouter(
 )
 @router.post("/message")
 async def chat_message( data: ChatMessage,current_user:User = Depends(get_current_user)):
-    
+    thread_id = current_user.user_id
     user_message = data.message.strip()
     print(user_message)
     if not user_message:   
@@ -19,7 +19,7 @@ async def chat_message( data: ChatMessage,current_user:User = Depends(get_curren
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="پیام خالی است"
         )
-    response = run_support_agent(user_message , current_user.user_id)
+    response = run_support_agent(user_message , current_user.user_id,thread_id)
     return {    
         "response": response,
         "status": "success"
