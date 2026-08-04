@@ -15,7 +15,7 @@ def rag_agent(message: str):
     print("Start Embedding")
     embeddings = OpenAIEmbeddings(
         model="text-embedding-3-small",
-        api_key="***REMOVED***",
+        api_key=api_get_embedding,
         base_url="https://openrouter.ai/api/v1"
     )
     print(f"embedding is" , embeddings)
@@ -56,7 +56,7 @@ Context:
 """
     model = ChatOpenRouter(
         model="openai/gpt-oss-20b",
-        api_key="***REMOVED***"
+        api_key=api_get_embedding
     )
     for chunk in model.stream(prompt):
 

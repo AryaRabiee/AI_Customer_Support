@@ -8,7 +8,7 @@ api_key = os.getenv("EMBEDDING_API_KEY")
 
 model = ChatOpenRouter(
     model="openai/gpt-oss-20b:free",
-    api_key="***REMOVED***",
+    api_key=api_key,
     temperature=0
 )
 
