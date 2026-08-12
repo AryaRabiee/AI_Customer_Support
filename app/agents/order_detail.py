@@ -7,16 +7,17 @@ from langchain.messages import HumanMessage , SystemMessage
 from utils.prompts import ORDER_DETAIL_PROMPT
 import os
 from langchain_core.messages import AIMessage
+from langchain_openai import ChatOpenAI
 
 
-api_key = os.getenv("EMBEDDING_API_KEY")
+api_key = os.getenv("QWEN_GAPGPT_KEY")
+base_url=os.getenv("BASE_URL_GAP")
 
-model = ChatOpenRouter(
-    model="openai/gpt-oss-20b:free",
+model = ChatOpenAI(
+    model="gapgpt-qwen-3.5",
     api_key=api_key,
-    temperature=0.5
+    base_url=base_url
 )
-
 def order_detail_node(state: SupportState):
     order_id = state["order_id"]
 
