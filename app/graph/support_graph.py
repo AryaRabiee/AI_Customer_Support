@@ -75,7 +75,6 @@ def run_support_agent(user_message: str,user_id: int , thread_id):
             }
         }
     )
-    print("===== STATE بعد از این پاس =====")
     print("intent:", result.get("intent"))
     print("next_agent:", result.get("next_agent"))
     print("order_id:", result.get("order_id"))
