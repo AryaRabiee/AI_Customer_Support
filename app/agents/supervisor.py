@@ -3,16 +3,19 @@ from graph.state import SupervisorDecision , SupportState
 from utils.prompts import SUPERVISOR_PROMPT
 import os
 from langchain.messages import AIMessage , SystemMessage
+from langchain_openai import ChatOpenAI
 
 
-api_key = os.getenv("EMBEDDING_API_KEY")
+model = os.getenv("GPT_OSS")
+api_key = os.getenv("MODEL_SUPERVISOR_V1")
+base_url = os.getenv("BASE_URL_AR_1")
 
-model = ChatOpenRouter(
-    model="openai/gpt-oss-20b:free",
+
+model = ChatOpenAI(
+    model=model,
     api_key=api_key,
-    temperature=0
+    base_url=base_url
 )
-
 
 supervisor_model = model.with_structured_output(
     SupervisorDecision
@@ -43,9 +46,8 @@ def supervisor_node(state: SupportState):
 
     print("result supervisor_node :", decision)
 
-    if decision not in ["rag", "chat", "database"]:
+    if decision not in ["rag", "chat", "database" , "refund"]:
         raise ValueError(f"Invalid supervisor decision: {decision}")
-
     return {
         "next_agent": decision
     }   
