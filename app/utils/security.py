@@ -6,7 +6,7 @@ import os
 password_hash = PasswordHash.recommended()
 
 SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = "HS256"
+ALGORITHM = os.getenv("ALGORITHM")
 
 def hash_password(password: str) -> str:
     return password_hash.hash(password)
@@ -18,7 +18,7 @@ def verify_password(plain_password: str,hashed_password: str) -> bool:
 
 def create_access_token(user_id : int) ->str:
 
-    expire = (datetime.now(timezone.utc) + timedelta(minutes=30))
+    expire = (datetime.now(timezone.utc) + timedelta(minutes=180))
 
     payload = {
         "sub":str(user_id),
