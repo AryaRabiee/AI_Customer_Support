@@ -4,8 +4,10 @@ from langchain.messages import HumanMessage , SystemMessage
 from utils.prompts import CHAT_PROMPT
 from langchain_core.messages import AIMessage
 from langchain_openai import ChatOpenAI
-
+from exceptions.llm import LLMError , LLMTimeoutError
+from openai import APIConnectionError ,APITimeoutError
 import os
+from utils.call_llm import call_llm
 
 api_key = os.getenv("QWEN_GAPGPT_KEY")
 base_url=os.getenv("BASE_URL_GAP")
@@ -13,16 +15,18 @@ base_url=os.getenv("BASE_URL_GAP")
 model = ChatOpenAI(
     model="gapgpt-qwen-3.5",
     api_key=api_key,
-    base_url=base_url
+    base_url=base_url,
+    timeout=30,
+    max_retries=1
 )
-
-
 def chat_node(state: SupportState):
-
-    response = model.invoke([
-        SystemMessage(content=CHAT_PROMPT),
-        *state["messages"]
-    ])
+    response = call_llm(
+        model,
+        [
+            SystemMessage(content=CHAT_PROMPT),
+            *state["messages"]
+        ]
+    )
 
     return {
         "response": response.content,

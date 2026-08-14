@@ -4,6 +4,8 @@ from utils.prompts import SUPERVISOR_PROMPT
 import os
 from langchain.messages import AIMessage , SystemMessage
 from langchain_openai import ChatOpenAI
+from exceptions.llm import InvalidDecisionError
+from utils.call_llm import call_llm
 
 
 model = os.getenv("GPT_OSS")
@@ -34,7 +36,8 @@ def supervisor_node(state: SupportState):
     print("User ID:", user_id)
     print("2 - calling model")
 
-    result = model.invoke([
+    result = call_llm(model,
+    [
         SystemMessage(content=SUPERVISOR_PROMPT),
         *messages
     ])
@@ -47,7 +50,10 @@ def supervisor_node(state: SupportState):
     print("result supervisor_node :", decision)
 
     if decision not in ["rag", "chat", "database" , "refund"]:
-        raise ValueError(f"Invalid supervisor decision: {decision}")
+        raise InvalidDecisionError(f"Invalid supervisor decision: {decision}")
     return {
         "next_agent": decision
     }   
+
+
+    

@@ -8,6 +8,7 @@ from utils.prompts import ORDER_DETAIL_PROMPT
 import os
 from langchain_core.messages import AIMessage
 from langchain_openai import ChatOpenAI
+from utils.call_llm import call_llm
 
 
 api_key = os.getenv("QWEN_GAPGPT_KEY")
@@ -46,7 +47,8 @@ def order_detail_node(state: SupportState):
             order_data=order.products
         )
 
-        response = model.invoke([
+        response = call_llm(model,
+        [
             SystemMessage(content=prompt),
             HumanMessage(content=state["user_message"])
         ])
@@ -54,7 +56,10 @@ def order_detail_node(state: SupportState):
         return {
             "response": response.content
         }
-
+    except Exception as e:
+        print(f"[order_detail_node] db error: {e}")
+        raise
+    
     finally:
         db.close()
         

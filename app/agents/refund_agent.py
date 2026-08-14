@@ -8,6 +8,7 @@ from utils.prompts import REFUND_AGENT_PROMPT
 from langchain.messages import SystemMessage , AIMessage
 from utils.db_utils import get_data,save_to_expert , check_product_rule
 import os
+from utils.call_llm import call_llm
 
 
 api_key = os.getenv("GPT_API_KEY")
@@ -26,7 +27,9 @@ def refund_agent(state: SupportState):
     print("START FUNC REFUND")
 
 
-    result = model_with_output.invoke([
+    result = call_llm(model_with_output,
+
+        [
         SystemMessage(content=REFUND_AGENT_PROMPT),
         *state["messages"]
     ])
