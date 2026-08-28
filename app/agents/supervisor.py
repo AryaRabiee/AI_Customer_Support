@@ -6,7 +6,9 @@ from langchain.messages import AIMessage , SystemMessage
 from langchain_openai import ChatOpenAI
 from exceptions.llm import InvalidDecisionError
 from utils.call_llm import call_llm
+import logging
 
+logger = logging.getLogger(__name__)
 
 model = os.getenv("GPT_OSS")
 api_key = os.getenv("MODEL_SUPERVISOR_V1")
@@ -25,16 +27,16 @@ supervisor_model = model.with_structured_output(
 
 
 def supervisor_node(state: SupportState):
-
-    print("1 - entered supervisor")
+    logger.info("STATE IS %s" , state)
+    logger.info("1 - entered supervisor")
 
     user_id = state["user_id"]
 
     messages = state["messages"]
-    print("MESSAGES", messages)
+    logger.info("MESSAGE %s" , messages)
 
-    print("User ID:", user_id)
-    print("2 - calling model")
+    logger.info("USER_ID IS %s" , user_id)
+    logger.info("2 - calling model")
 
     result = call_llm(model,
     [
@@ -42,15 +44,21 @@ def supervisor_node(state: SupportState):
         *messages
     ])
 
-    print("3 - model responded")
-    print("RAW SUPERVISOR RESPONSE:", repr(result.content))
+    logger.info("3 - model responded")
+    logger.info("RAW SUPERVISOR RESPONSE %s", repr(result.content))
 
     decision = result.content.strip()
 
-    print("result supervisor_node :", decision)
+    logger.info("result supervisor_node %s:", decision)
 
-    if decision not in ["rag", "chat", "database" , "refund"]:
-        raise InvalidDecisionError(f"Invalid supervisor decision: {decision}")
+    if decision not in ["rag", "chat", "database", "refund"]:
+        logger.error(
+            "Invalid supervisor decision: %s",
+            decision
+        )
+        raise InvalidDecisionError(
+            f"Invalid supervisor decision: {decision}"
+        )
     return {
         "next_agent": decision
     }   

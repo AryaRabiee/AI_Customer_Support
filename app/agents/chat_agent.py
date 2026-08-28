@@ -8,7 +8,12 @@ from exceptions.llm import LLMError , LLMTimeoutError
 from openai import APIConnectionError ,APITimeoutError
 import os
 from utils.call_llm import call_llm
+from dotenv import load_dotenv
+import logging
 
+logger = logging.getLogger(__name__)
+
+load_dotenv()
 api_key = os.getenv("QWEN_GAPGPT_KEY")
 base_url=os.getenv("BASE_URL_GAP")
 
@@ -20,6 +25,7 @@ model = ChatOpenAI(
     max_retries=1
 )
 def chat_node(state: SupportState):
+    print("user chat node",state["user_id"])
     response = call_llm(
         model,
         [

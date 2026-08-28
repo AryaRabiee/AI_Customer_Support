@@ -1,57 +1,46 @@
 from graph.state import SupportState , ExtractData
 from langchain_openrouter import ChatOpenRouter
-from langchain.messages import HumanMessage , SystemMessage
+from langchain.messages import HumanMessage , SystemMessage , AIMessage
 from utils.prompts import EXTRACT_DATA_PROMPT
 import os
 import re
 from langchain_openai import ChatOpenAI
-from utils.call_llm import call_llm
+from langchain.agents import create_agent
+from utils.call_llm import call_llm,call_llm_with_tools
+from dotenv import load_dotenv
+from tools.database.order_detail import order_detail_tool
+from tools.database.order_status import order_status_tool
 
+import logging
+
+logger = logging.getLogger(__name__)
+load_dotenv()
 api_key = os.getenv("QWEN_GAPGPT_KEY")
 base_url=os.getenv("BASE_URL_GAP")
 
 model = ChatOpenAI(
-    model="gapgpt-qwen-3.5",
+    model="gpt-5.6-luna",
     api_key=api_key,
     base_url=base_url,
     timeout=30,
     max_retries=2
 )
 
-output_model = model.with_structured_output(ExtractData)
 
 def extract_data(state: SupportState):
-    print("start func extract_data")
-
-
-    messages = state["messages"]
-    result = call_llm(model,
-                        
+    logger.info("Start extract_data")
+    response = call_llm_with_tools(
+        model,
         [
-        SystemMessage(content=EXTRACT_DATA_PROMPT),
-        *messages
-        ]
-                        )
-
-    content = result.content or ""
-    print(f"content is {content}")
-
-    intent_match = re.search(r'intent\s*=\s*"([^"]+)"', content)
-    intent = intent_match.group(1) if intent_match else None
-
-    order_id = None
-    order_id_match = re.search(r'order_id\s*=\s*(\d+|null)', content)
-    if order_id_match and order_id_match.group(1) != "null":
-        try:
-            order_id = int(order_id_match.group(1))
-        except ValueError:
-            order_id = None   
-
-    print("intent:", intent)
-    print("order_id:", order_id)
+            SystemMessage(content=EXTRACT_DATA_PROMPT),
+            *state["messages"]
+        ],
+        [order_detail_tool,order_status_tool]
+    )
 
     return {
-        "intent": intent,
-        "order_id": order_id
+        "response": response.content,
+        "messages": [
+            AIMessage(content=response.content, tool_calls=response.tool_calls)
+        ]
     }
-

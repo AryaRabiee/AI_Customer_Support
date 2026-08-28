@@ -1,7 +1,9 @@
 from graph.state import SupportState
 from services.rag.hybrid_search import hybrid_search_weighted_rrf
 from langchain_core.messages import AIMessage
+import logging
 
+logger = logging.getLogger(__name__)
 
 def rag_node(state: SupportState):
 
@@ -15,7 +17,6 @@ def rag_node(state: SupportState):
 
     answer = "".join(chunks)
 
-    print("RAG ANSWER:", answer)
 
     return {
         "messages": [
