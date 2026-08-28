@@ -8,7 +8,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from pathlib import Path
-
+import utils.logger
 file_path = Path(__file__).parent.parent
 
 load_dotenv()
