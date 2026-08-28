@@ -1,5 +1,5 @@
 from langchain.chat_models import init_chat_model
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai import OpenAIEmbeddings , ChatOpenAI
 from langchain_openrouter import ChatOpenRouter
 from langchain_chroma import Chroma
 from langchain.agents import create_agent
@@ -11,8 +11,12 @@ from rank_bm25 import BM25Okapi
 from bm25s import BM25
 from hazm import Normalizer , word_tokenize
 from sentence_transformers import CrossEncoder
+import logging
+logger = logging.getLogger(__name__)
 load_dotenv()
-api_get_embedding = os.getenv("EMBEDDING_API_KEY")
+api_get_embedding = os.getenv("EMBEDDING_KEY")
+api_key = os.getenv("QWEN_GAPGPT_KEY")
+base_url = os.getenv("BASE_URL_GAP")
 current_dir = Path(__file__).parent
 CHROMA_DIR = current_dir / "chroma_db"
 
@@ -26,7 +30,7 @@ RRF_K = 10
 embeddings = OpenAIEmbeddings(
     model="text-embedding-3-small",
     api_key=api_get_embedding,
-    base_url="https://openrouter.ai/api/v1"
+    base_url=base_url
 )
 
 vectorstore = Chroma(
@@ -43,8 +47,7 @@ semantic_retriever = vectorstore.as_retriever(
 all_docs = vectorstore.get()
 
 corpus = all_docs["documents"]
-
-print(f"✅ Corpus loaded: {len(corpus)} documents")
+logger.info("Corpus loaded %s" ,{len(corpus)} )
 
 normalizer = Normalizer()
 
@@ -57,31 +60,32 @@ tokenized_corpus = [
     word_tokenize(doc)
     for doc in normalized_corpus
 ]
-
-print(f"✅ Corpus tokenized: {len(tokenized_corpus)} documents")
+logger.info("Corpus tokenized: %s" ,len(tokenized_corpus) )
 
 bm25 = BM25()
 
 bm25.index(
     tokenized_corpus
 )
+logger.info(" BM25S index is ready")
 
-print("✅ BM25S index is ready")
-
-def rrf_score(rank: int, rrf_k: int = 1):
+def rrf_score(rank: int, rrf_k: int = 60):
     return 1.0 / (rrf_k + rank)
 
 
 def hybrid_search_weighted_rrf(
     message: str,
     k: int = 5,
-    alpha: float = 1
+    alpha: float = 0.7
 ):
 
 
     semantic_docs = semantic_retriever.invoke(message)
-
-    print(f"✅ Semantic results: {len(semantic_docs)}")
+    
+    logger.info(
+    "Semantic retrieval completed | documents=%s",
+    len(semantic_docs)
+)
 
 
 
@@ -89,7 +93,10 @@ def hybrid_search_weighted_rrf(
 
     tokenized_query = word_tokenize(normalized_query)
 
-    print(f"✅ Tokenized query: {tokenized_query}")
+    logger.info(
+    "BM25 tokenized query: %s",
+    tokenized_query
+)
 
     results, scores = bm25.retrieve(
         [tokenized_query],
@@ -103,8 +110,10 @@ def hybrid_search_weighted_rrf(
         for index in keyword_indices
     ]
 
-    print(f"✅ BM25 results: {len(keyword_results)}")
-
+    logger.info(
+    "BM25 retrieval completed | documents=%s",
+    len(keyword_results)
+)
 
 
 
@@ -139,11 +148,26 @@ def hybrid_search_weighted_rrf(
         key=lambda item: item[1],
         reverse=True
     )
-
+    for rank, (doc, score) in enumerate(
+    ranked_docs,
+    start=1
+):
+        logger.info(
+            "RRF FINAL CANDIDATE | rank=%d | score=%.6f | doc=%s",
+            rank,
+            score,
+            doc[:100].replace("\n", " ")
+        )
     final_results = ranked_docs[:k]
-
-    print(f"✅ Final results: {len(final_results)} documents")
-    print(f"✅ RRF scores: {final_results}")
+    logger.info(
+        "RAG retrieval completed | documents=%s",
+        len(final_results)
+    )
+    
+    logger.info(
+        "RRF scores: %s",
+        final_results
+    )
 
 
 
@@ -151,7 +175,6 @@ def hybrid_search_weighted_rrf(
         f"[{i+1}] {doc}"
         for i, (doc, score) in enumerate(final_results)
     )
-
 
 
     prompt = f"""
@@ -163,8 +186,6 @@ def hybrid_search_weighted_rrf(
 - فقط بر اساس اطلاعات موجود در Context پاسخ بده.
 - اطلاعاتی که در Context وجود ندارد را حدس نزن.
 - اگر پاسخ سؤال در Context وجود ندارد، دقیقاً بگو:
-
-«متأسفانه اطلاعات کافی برای پاسخ به این سؤال ندارم.»
 
 - پاسخ کوتاه، دقیق و طبیعی باشد.
 - به زبان فارسی پاسخ بده.
@@ -179,13 +200,15 @@ Context:
 """
 
 
-    model = ChatOpenRouter(
-        model="openai/gpt-oss-20b",
-        api_key=api_get_embedding
+    model = ChatOpenAI(
+        model = "gemma-3-27b-it",
+        api_key=api_key,
+        base_url=base_url
     )
-
 
     for chunk in model.stream(prompt):
 
         if chunk.content:
             yield chunk.content
+
+
