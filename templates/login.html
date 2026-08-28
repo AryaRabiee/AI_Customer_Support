@@ -287,96 +287,239 @@
         </div>
     </div>
 
-    <script>
-        // Tab Switching
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-content').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            document.getElementById(tabName).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // Show Message
-        function showMessage(elementId, text, type) {
-            const element = document.getElementById(elementId);
-            element.textContent = text;
-            element.className = `message ${type} active`;
-            setTimeout(() => {
-                element.classList.remove('active');
-            }, 4000);
-        }
-
-        // Login Form
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const email = document.getElementById('loginEmail').value;
-            const password = document.getElementById('loginPassword').value;
-
-            try {
-                const response = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include',
-                    body: JSON.stringify({ email, password })
-                });
-
-                if (response.ok) {
-                    showMessage('loginMsg', '✓ ورود موفق! درحال انتقال...', 'success');
-                    setTimeout(() => {
-                        window.location.href = '/support';
-                    }, 1500);
-                } else {
-                    const error = await response.json();
-                    showMessage('loginMsg', '❌ ' + (error.detail || 'خطا در ورود'), 'error');
-                }
-            } catch (error) {
-                console.error(error);
-                showMessage('loginMsg', '❌ خطا در اتصال به سرور', 'error');
-            }
+<script>
+    // =========================
+    // Tab Switching
+    // =========================
+    function switchTab(tabName) {
+        document.querySelectorAll('.tab-content').forEach(tab => {
+            tab.classList.remove('active');
         });
 
-        // Signup Form
-        document.getElementById('signupForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const name = document.getElementById('signupName').value;
-            const email = document.getElementById('signupEmail').value;
-            const password = document.getElementById('signupPassword').value;
-            const confirm = document.getElementById('signupConfirm').value;
-
-            if (password !== confirm) {
-                showMessage('signupMsg', '❌ رمز عبور‌ها مطابقت ندارند', 'error');
-                return;
-            }
-
-            try {
-                const response = await fetch('/api/auth/signup', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, email, password })
-                });
-
-                if (response.ok) {
-                    showMessage('signupMsg', '✓ ثبت‌نام موفق! الطفا وارد شوید', 'success');
-                    setTimeout(() => {
-                        switchTab('login');
-                        document.getElementById('loginEmail').value = email;
-                    }, 1500);
-                } else {
-                    const error = await response.json();
-                    showMessage('signupMsg', '❌ ' + (error.detail || 'خطا در ثبت‌نام'), 'error');
-                }
-            } catch (error) {
-                console.error(error);
-                showMessage('signupMsg', '❌ خطا در اتصال به سرور', 'error');
-            }
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.classList.remove('active');
         });
-    </script>
+
+        document.getElementById(tabName).classList.add('active');
+
+        event.target.classList.add('active');
+    }
+
+
+    // =========================
+    // Show Message
+    // =========================
+    function showMessage(elementId, text, type) {
+        const element = document.getElementById(elementId);
+
+        element.textContent = text;
+        element.className = `message ${type} active`;
+
+        setTimeout(() => {
+            element.classList.remove('active');
+        }, 4000);
+    }
+
+
+    // =========================
+    // Refresh Access Token
+    // =========================
+    async function refreshAccessToken() {
+
+        try {
+            const response = await fetch('/api/auth/refresh', {
+                method: 'POST',
+                credentials: 'include'
+            });
+
+            return response.ok;
+
+        } catch (error) {
+            console.error('Refresh token error:', error);
+            return false;
+        }
+    }
+
+
+    // =========================
+    // API Request Helper
+    // =========================
+    async function apiFetch(url, options = {}) {
+
+        let response = await fetch(url, {
+            ...options,
+            credentials: 'include'
+        });
+
+
+        // Access Token expired
+        if (response.status === 401) {
+
+            const refreshed = await refreshAccessToken();
+
+            // Refresh failed
+            if (!refreshed) {
+                window.location.href = '/login';
+                return response;
+            }
+
+
+            // Access Token successfully refreshed
+            // Try original request again
+            response = await fetch(url, {
+                ...options,
+                credentials: 'include'
+            });
+        }
+
+        return response;
+    }
+
+
+    // =========================
+    // Login Form
+    // =========================
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+
+        e.preventDefault();
+
+        const email = document.getElementById('loginEmail').value;
+        const password = document.getElementById('loginPassword').value;
+
+        try {
+
+            const response = await fetch('/api/auth/login', {
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                credentials: 'include',
+
+                body: JSON.stringify({
+                    email,
+                    password
+                })
+            });
+
+
+            if (response.ok) {
+
+                showMessage(
+                    'loginMsg',
+                    '✓ ورود موفق! درحال انتقال...',
+                    'success'
+                );
+
+                setTimeout(() => {
+                    window.location.href = '/support';
+                }, 1500);
+
+            } else {
+
+                const error = await response.json();
+
+                showMessage(
+                    'loginMsg',
+                    '❌ ' + (error.detail || 'خطا در ورود'),
+                    'error'
+                );
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                'loginMsg',
+                '❌ خطا در اتصال به سرور',
+                'error'
+            );
+        }
+    });
+
+
+    // =========================
+    // Signup Form
+    // =========================
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+
+        e.preventDefault();
+
+        const name = document.getElementById('signupName').value;
+        const email = document.getElementById('signupEmail').value;
+        const password = document.getElementById('signupPassword').value;
+        const confirm = document.getElementById('signupConfirm').value;
+
+
+        if (password !== confirm) {
+
+            showMessage(
+                'signupMsg',
+                '❌ رمز عبور‌ها مطابقت ندارند',
+                'error'
+            );
+
+            return;
+        }
+
+
+        try {
+
+            const response = await fetch('/api/auth/signup', {
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: JSON.stringify({
+                    name,
+                    email,
+                    password
+                })
+            });
+
+
+            if (response.ok) {
+
+                showMessage(
+                    'signupMsg',
+                    '✓ ثبت‌نام موفق! لطفاً وارد شوید',
+                    'success'
+                );
+
+                setTimeout(() => {
+
+                    switchTab('login');
+
+                    document.getElementById('loginEmail').value = email;
+
+                }, 1500);
+
+            } else {
+
+                const error = await response.json();
+
+                showMessage(
+                    'signupMsg',
+                    '❌ ' + (error.detail || 'خطا در ثبت‌نام'),
+                    'error'
+                );
+            }
+
+        } catch (error) {
+
+            console.error(error);
+
+            showMessage(
+                'signupMsg',
+                '❌ خطا در اتصال به سرور',
+                'error'
+            );
+        }
+    });
+</script>
 </body>
 </html>
