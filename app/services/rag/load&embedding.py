@@ -4,10 +4,13 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_openai import OpenAIEmbeddings
 import os
 from langchain_chroma import Chroma
-from embedding import get_embedding
 from dotenv import load_dotenv
+import logging
+
+logger = logging.getLogger(__name__)
 load_dotenv()
-api_get_embedding = os.getenv("EMBEDDING_API_KEY")
+api_get_embedding = os.getenv("EMBEDDING_KEY")
+base_url = os.getenv("BASE_URL_GAP")
 current_dir = Path(__file__).parent
 file_path = current_dir / "docs.txt"
 def embedding_docs(file):
@@ -23,7 +26,10 @@ def embedding_docs(file):
         keep_separator=True
     )
     docs = splitter.split_documents(text)
-    print(f"✅ {len(docs)} chunk آماده شد\n")
+    logger.info(
+    "Chunking completed | chunks=%s",
+    len(docs)
+)
     
     for i, doc in enumerate(docs[:5]):
         lines = doc.page_content.split('\n')
@@ -35,7 +41,7 @@ def embedding_docs(file):
     embeddings = OpenAIEmbeddings(
         model="text-embedding-3-small",
         api_key=api_get_embedding,
-        base_url="https://openrouter.ai/api/v1"
+        base_url=base_url
     )
     
     vector_store = Chroma.from_documents(
@@ -43,7 +49,7 @@ def embedding_docs(file):
         embedding=embeddings,
         persist_directory="./chroma_db"
     )
-    
+    print("Finished succesfully")
     return vector_store, docs
 
 
