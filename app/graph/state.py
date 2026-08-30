@@ -4,7 +4,7 @@ from pydantic import BaseModel, Field
 from langgraph.graph import MessagesState
 
 class SupportState(MessagesState):
-    user_id: str
+    user_id: int | None
     user_message: str
     next_agent: Literal["chat", "rag", "database", "refund"]
     response: str
