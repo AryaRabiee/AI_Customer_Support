@@ -12,7 +12,7 @@ load_dotenv()
 api_get_embedding = os.getenv("EMBEDDING_KEY")
 base_url = os.getenv("BASE_URL_GAP")
 current_dir = Path(__file__).parent
-file_path = current_dir / "docs.txt"
+file_path = current_dir / "products_data.md"
 def embedding_docs(file):
 
     
