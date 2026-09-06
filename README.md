@@ -27,6 +27,8 @@ Company FAQs
 General product information
 
 Instead of relying only on the LLM's internal knowledge, the system first retrieves relevant information from the knowledge base and then provides that context to the LLM to generate the final answer.
+
+
 ## 📊 RAG Performance
 
 The retrieval system was evaluated using a custom evaluation dataset.
@@ -46,20 +48,21 @@ The system uses a multi-agent architecture built with LangGraph.
 
 The general request flow is:
 
-Customer Message
-       │
-       ▼
+                Chat Endpoint   
+                       │
+                       ▼       
+                 Chat Endpoint         
 
-    Chat Endpoint         
-  Validation + Rate Limit    
-        15 req/min          
+                       │
+                       ▼  
 
-               
-               
+                 Validation/Rate Limit    
+                       │
+                       ▼    
 
-     Supervisor Agent       
-                 
-                 
+                 Supervisor Agent       
+                       │
+                       ▼  
        ┌───────┼────────┬──────────┬──────────┐
        ▼       ▼        ▼          ▼          ▼
      Chat    Order     RAG      Refund      Shop
@@ -141,39 +144,31 @@ Customer Request
    Database
 ### Shop Agent
 
-Helps customers find products based on their requirements and preferences.
+The Shop Agent helps customers find the right products based on their needs, budget, and preferences.
 
-The agent can ask about things such as:
 
-Product type
-Budget
-Features
-Customer preferences
 
-It uses three tools:
+Instead of simply searching for a product, the agent can have a short conversation with the customer to understand what they're looking for and then find suitable options.
 
-shop_find_product — Searches the product database for suitable products.
-product_info_search — Retrieves additional information about a selected product.
-search_product — Searches the web when the available information is not sufficient.
-Shopping Workflow
-Customer Request
-       │
-       ▼
-Understand Requirements
-       │
-       ▼
-shop_find_product
-       │
-       ▼
-product_info_search
-       │
-       ├──── Information not enough
-       │              │
-       │              ▼
-       │       search_product
-       │
-       ▼
-Product Recommendations
+
+
+For example:
+
+"I need a keyboard for programming, preferably under $100."
+
+The agent can identify the requirements, search for matching products, retrieve additional product information, and recommend the most suitable options.
+
+Tools
+
+The Shop Agent uses three tools:
+
+
+
+shop_find_product — Searches the product database based on the customer's requirements.
+
+product_info_search — Retrieves detailed information about a selected product.
+
+search_product — Searches the web when the available product information is not sufficient.
 ## Tech Stack
 Technology	Purpose
 Python 3.13+	Main programming language
