@@ -27,33 +27,6 @@ Company FAQs
 General product information
 
 Instead of relying only on the LLM's internal knowledge, the system first retrieves relevant information from the knowledge base and then provides that context to the LLM to generate the final answer.
-
-Hybrid Retrieval
-
-The retrieval system uses a hybrid search approach that combines:
-
-Semantic Search — Finds relevant information based on the meaning of the query.
-BM25 — Finds relevant information based on keyword matching.
-RRF (Reciprocal Rank Fusion) — Combines the results from both retrieval methods into a better final ranking.
-RAG Pipeline
-                    User Question
-                          │
-              ┌───────────┴───────────┐
-              │                       │
-       Semantic Search             BM25 Search
-              │                       │
-              └───────────┬───────────┘
-                          │
-                         RRF
-                          │
-                          ▼
-                 Relevant Context
-                          │
-                          ▼
-                         LLM
-                          │
-                          ▼
-                    Final Answer
 ## 📊 RAG Performance
 
 The retrieval system was evaluated using a custom evaluation dataset.
@@ -76,19 +49,17 @@ The general request flow is:
 Customer Message
        │
        ▼
-┌─────────────────────────────┐
-│       Chat Endpoint         │
-│  Validation + Rate Limit    │
-│         15 req/min          │
-└──────────────┬──────────────┘
-               │
-               ▼
-┌─────────────────────────────┐
-│      Supervisor Agent       │
-│      Intent Routing         │
-│       ~94% Accuracy         │
-└──────────────┬──────────────┘
-               │
+
+    Chat Endpoint         
+  Validation + Rate Limit    
+        15 req/min          
+
+               
+               
+
+     Supervisor Agent       
+                 
+                 
        ┌───────┼────────┬──────────┬──────────┐
        ▼       ▼        ▼          ▼          ▼
      Chat    Order     RAG      Refund      Shop
