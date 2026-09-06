@@ -1,14 +1,14 @@
 from fastapi import APIRouter , HTTPException , Depends , status
-from db.database import get_db
+from app.db.database import get_db
 from fastapi import Request
 from sqlalchemy.orm import Session
-from schemas.auth import LoginRequest , SignupRequest
+from app.schemas.auth import LoginRequest , SignupRequest
 from sqlalchemy.exc import SQLAlchemyError
-from db.models import User , Order , Ticket
+from app.db.models import User , Order , Ticket
 from fastapi.security import OAuth2PasswordRequestForm
-from utils.security import verify_password , create_access_token , hash_password , create_refresh_token , decode_refresh_token
+from app.utils.security import verify_password , create_access_token , hash_password , create_refresh_token , decode_refresh_token
 from fastapi import Response
-from api.dependencies.auth import get_current_user
+from app.api.dependencies.auth import get_current_user
 import logging
 
 logger = logging.getLogger(__name__)
@@ -22,7 +22,7 @@ def login(data : LoginRequest ,response : Response, db : Session = Depends(get_d
     try:
         user = (db.query(User).filter(User.email == data.email)).first()
     except SQLAlchemyError as e:    
-        logger.exception("Database error during login")
+        logger.exception("Database error during login %s" , e)
         db.rollback()
         raise HTTPException(status_code=500, detail="Database Error")
 
@@ -83,7 +83,7 @@ def signup(data: SignupRequest, db: Session = Depends(get_db)):
         }
         
     except SQLAlchemyError as e:
-        logger.exception("Database error during signup")
+        logger.exception("Database error during signup %s" ,e)
         db.rollback()
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

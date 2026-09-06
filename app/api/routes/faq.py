@@ -1,6 +1,6 @@
 from fastapi import APIRouter , HTTPException
-from schemas.faq import FAGRequest , FAQResponse
-from services.rag.hybrid_search import hybrid_search_weighted_rrf
+from app.schemas.faq import FAGRequest , FAQResponse
+from app.services.rag.hybrid_search import hybrid_search_weighted_rrf
 from fastapi.responses import StreamingResponse
 import json
 
