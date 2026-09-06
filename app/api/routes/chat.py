@@ -84,4 +84,4 @@ async def chat_history(
         }
     except Exception as e:
         logger.error(f"Error loading chat history: {e}")
-        return {"messages": []}  # خالی بجای خطا
+        return {"messages": []} 
