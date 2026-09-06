@@ -206,6 +206,7 @@ Context:
         base_url=base_url
     )
 
+
     for chunk in model.stream(prompt):
 
         if chunk.content:

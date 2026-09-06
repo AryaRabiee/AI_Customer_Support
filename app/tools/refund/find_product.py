@@ -3,11 +3,11 @@ from dotenv import load_dotenv
 import os
 from typing import Annotated
 from langgraph.prebuilt import InjectedState
-from db.database import SessionLocal
+from app.db.database import SessionLocal
 from sqlalchemy import select
-from db.models import Product , Order , Category
+from app.db.models import Product , Order , Category
 from langchain.tools import tool
-from utils.logger import logging
+from app.utils.logger import logging
 logger = logging.getLogger(__name__)
 load_dotenv()
 model_name = os.getenv("MODEL")
@@ -40,9 +40,14 @@ def find_product(order_id , product_id , user_id : Annotated[int , InjectedState
         .join(Category , Category.category_id == Product.category_id)
         .where(
             Order.order_id == order_id,
-            Order.user_id == user_id
+            Order.user_id == user_id,
+            Product.product_id == product_id
         )
     ).first()
+    if result is None:
+        return {
+            "response": "محصولی با چنین شماره‌ای پیدا نشد"
+        }
     order , product , category = result
     if order is None:
         return {

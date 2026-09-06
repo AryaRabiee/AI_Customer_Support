@@ -1,5 +1,5 @@
 from langchain.tools import tool
-from utils.logger import logging
+from app.utils.logger import logging
 from datetime import datetime , timedelta
 logger = logging.getLogger(__name__)
 @tool

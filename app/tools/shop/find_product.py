@@ -1,7 +1,7 @@
 from langchain.tools import tool
-from db.models import Product
-from utils.logger import logging
-from db.database import SessionLocal
+from app.db.models import Product
+from app.utils.logger import logging
+from app.db.database import SessionLocal
 from sqlalchemy import select
 
 logger = logging.getLogger(__name__)
