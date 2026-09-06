@@ -282,7 +282,7 @@ The evaluation indicates that the Supervisor can reliably distinguish between th
 
 ---
 
-# Project Articehture
+# Project Architecture
 
 ```text
             Chat Endpoint   
