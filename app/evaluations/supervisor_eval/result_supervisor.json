@@ -1,0 +1,222 @@
+[
+    {
+        "expected": "chat",
+        "response": "chat"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "rag",
+        "response": "database"
+    },
+    {
+        "expected": "chat",
+        "response": "chat"
+    },
+    {
+        "expected": "refund",
+        "response": "refund"
+    },
+    {
+        "expected": "refund",
+        "response": "refund"
+    },
+    {
+        "expected": "refund",
+        "response": "refund"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "chat",
+        "response": "chat"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "refund",
+        "response": "refund"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "chat",
+        "response": "chat"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "refund",
+        "response": "refund"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "refund",
+        "response": "refund"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "refund",
+        "response": "refund" 
+    },
+    {
+        "expected": "chat",
+        "response": "chat"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "refund",
+        "response": "refund"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "chat",
+        "response": "chat"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    },
+    {
+        "expected": "refund",
+        "response": "refund"
+    },
+    {
+        "expected": "shop",
+        "response": "shop"
+    },
+    {
+        "expected": "refund",
+        "response": "refund"
+    },
+    {
+        "expected": "database",
+        "response": "database"
+    },
+    {
+        "expected": "chat",
+        "response": "chat"
+    },
+    {
+        "expected": "rag",
+        "response": "rag"
+    }
+]

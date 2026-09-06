@@ -1,0 +1,1037 @@
+[
+  {
+    "id": 1,
+    "conversation": "سلام خوبی؟",
+    "answer": "chat"
+  },
+  {
+    "id": 2,
+    "conversation": "مهلت مرجوعی کالا چقد است",
+    "answer": "rag"
+  },
+  {
+    "id": 3,
+    "conversation": "سفارشم رو چطور پیگیری کنم",
+    "answer": "rag"
+  },
+  {
+    "id": 4,
+    "conversation": "سلام خوبی؟",
+    "answer": "chat"
+  },
+  {
+    "id": 5,
+    "conversation": "میخوام محصولم رو مرجوع کنم",
+    "answer": "refund"
+  },
+  {
+    "id": 6,
+    "conversation": "میخوام سفارشم رو پس بدم",
+    "answer": "refund"
+  },
+  {
+    "id": 7,
+    "conversation": "از خریدم منصرف شدم",
+    "answer": "refund"
+  },
+  {
+    "id": 8,
+    "conversation": "وضعیت سفارش 12 چطوره",
+    "answer": "database"
+  },
+  {
+    "id": 9,
+    "conversation": "مهلت استفاده از گارانتی چقده",
+    "answer": "rag"
+  },
+  {
+    "id": 10,
+    "conversation": "امروز هوا چطوره؟",
+    "answer": "chat"
+  },
+  {
+    "id": 11,
+    "conversation": "جزییات سفارش من رو میگی",
+    "answer": "database"
+  },
+  {
+    "id": 12,
+    "conversation": "مراحل مرجوع کردن محصول چطوریه ",
+    "answer": "rag"
+  },
+  {
+    "id": 13,
+    "conversation": "یه کیبورد میخواستم تا 50 تومن",
+    "answer": "shop"
+  },
+  {
+    "id": 14,
+    "conversation": "موس لاجینک دارین؟",
+    "answer": "shop"
+  },
+  {
+    "id": 15,
+    "conversation": "چطور با پشتیبانی حرف بزنم؟",
+    "answer": "rag"
+  },
+
+  {
+    "id": 16,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "میخوام سفارش 125 رو پیگیری کنم."
+      },
+      {
+        "role": "assistant",
+        "content": "حتماً، وضعیت سفارش 125 رو بررسی می‌کنم."
+      },
+      {
+        "role": "user",
+        "content": "الان وضعیتش چیه؟"
+      }
+    ],
+    "answer": "database"
+  },
+
+  {
+    "id": 17,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "یه لپ‌تاپ میخوام بخرم."
+      },
+      {
+        "role": "assistant",
+        "content": "حتماً، چه نوع لپ‌تاپی مدنظرتونه؟"
+      },
+      {
+        "role": "user",
+        "content": "برای برنامه‌نویسی میخوام."
+      },
+      {
+        "role": "assistant",
+        "content": "بودجه‌تون حدوداً چقدره؟"
+      },
+      {
+        "role": "user",
+        "content": "حدود 50 میلیون."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "چندتا مدل مناسب بهم معرفی کن."
+      }
+    ],
+    "answer": "shop"
+  },
+
+  {
+    "id": 18,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "میخوام کالایی که خریدم رو پس بدم."
+      },
+      {
+        "role": "assistant",
+        "content": "حتماً، دلیل مرجوع کردن محصول چیه؟"
+      },
+      {
+        "role": "user",
+        "content": "نظرم عوض شده."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "تا چند روز فرصت دارم؟"
+      }
+    ],
+    "answer": "rag"
+  },
+
+  {
+    "id": 19,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سفارشم رو اشتباهی ثبت کردم."
+      },
+      {
+        "role": "assistant",
+        "content": "اگر هنوز ارسال نشده باشد ممکن است بتوان آن را لغو کرد."
+      },
+      {
+        "role": "user",
+        "content": "هنوز ارسال نشده."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "پس لغوش کن."
+      }
+    ],
+    "answer": "refund"
+  },
+
+  {
+    "id": 20,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سفارش 456 رو ثبت کردم."
+      },
+      {
+        "role": "assistant",
+        "content": "باشه."
+      },
+      {
+        "role": "user",
+        "content": "میخوام ببینم چه چیزایی توش هست."
+      }
+    ],
+    "answer": "database"
+  },
+
+  {
+    "id": 21,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "یه هدست گیمینگ میخوام."
+      },
+      {
+        "role": "assistant",
+        "content": "چه بودجه‌ای در نظر دارید؟"
+      },
+      {
+        "role": "user",
+        "content": "حدود 3 میلیون."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "چندتا گزینه داری؟"
+      }
+    ],
+    "answer": "shop"
+  },
+
+  {
+    "id": 22,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "محصولی که گرفتم خراب شده."
+      },
+      {
+        "role": "assistant",
+        "content": "اگر محصول تحت گارانتی باشد می‌توانید درخواست گارانتی ثبت کنید."
+      },
+      {
+        "role": "user",
+        "content": "از کجا بفهمم هنوز گارانتی داره؟"
+      }
+    ],
+    "answer": "rag"
+  },
+
+  {
+    "id": 23,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سفارش 782 رو چند روز پیش ثبت کردم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "هنوز به دستم نرسیده."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "می‌تونی ببینی الان کجاست؟"
+      }
+    ],
+    "answer": "database"
+  },
+
+  {
+    "id": 24,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سلام."
+      },
+      {
+        "role": "assistant",
+        "content": "سلام! چطور می‌تونم کمکتون کنم؟"
+      },
+      {
+        "role": "user",
+        "content": "هیچی، فقط گفتم یه سلامی کرده باشم."
+      }
+    ],
+    "answer": "chat"
+  },
+
+  {
+    "id": 25,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "یه محصول خریدم ولی دیگه نمیخوامش."
+      },
+      {
+        "role": "assistant",
+        "content": "می‌تونید در صورت واجد شرایط بودن درخواست بازگشت ثبت کنید."
+      },
+      {
+        "role": "user",
+        "content": "هزینه برگشتش رو هم شرکت میده؟"
+      }
+    ],
+    "answer": "rag"
+  },
+
+  {
+    "id": 26,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "یه گوشی میخوام."
+      },
+      {
+        "role": "assistant",
+        "content": "چه محدوده قیمتی مدنظرتونه؟"
+      },
+      {
+        "role": "user",
+        "content": "حدود 20 میلیون."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "دوربین خوب هم داشته باشه."
+      }
+    ],
+    "answer": "shop"
+  },
+
+  {
+    "id": 27,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "میخوام سفارش 321 رو لغو کنم."
+      },
+      {
+        "role": "assistant",
+        "content": "آیا سفارش هنوز ارسال نشده؟"
+      },
+      {
+        "role": "user",
+        "content": "نه، هنوز ارسال نشده."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "خب مبلغش کی برمیگرده؟"
+      }
+    ],
+    "answer": "refund"
+  },
+
+  {
+    "id": 28,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سفارش 654 رو می‌خوام بررسی کنم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "آدرس ارسالش کجاست؟"
+      }
+    ],
+    "answer": "database"
+  },
+
+  {
+    "id": 29,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "رمز حسابم رو یادم رفته."
+      },
+      {
+        "role": "assistant",
+        "content": "می‌تونید از گزینه فراموشی رمز عبور استفاده کنید."
+      },
+      {
+        "role": "user",
+        "content": "به ایمیلم هم دسترسی ندارم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "پس باید چیکار کنم؟"
+      }
+    ],
+    "answer": "rag"
+  },
+
+  {
+    "id": 30,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "یه مانیتور برای کار میخوام."
+      },
+      {
+        "role": "assistant",
+        "content": "بودجه‌تون چقدره؟"
+      },
+      {
+        "role": "user",
+        "content": "حداکثر 15 میلیون."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "مدل‌های موجود رو نشونم بده."
+      }
+    ],
+    "answer": "shop"
+  },
+
+  {
+    "id": 31,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "محصولی که برام فرستادید اشتباهه."
+      },
+      {
+        "role": "assistant",
+        "content": "می‌تونید برای بازگشت محصول اقدام کنید."
+      },
+      {
+        "role": "user",
+        "content": "هزینه ارسال برگشت با منه؟"
+      }
+    ],
+    "answer": "rag"
+  },
+
+  {
+    "id": 32,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "میخوام بدونم سفارش 900 چی شد."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "تاریخ ارسالش رو هم میگی؟"
+      }
+    ],
+    "answer": "database"
+  },
+
+  {
+    "id": 33,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "من یه کالا میخوام مرجوع کنم."
+      },
+      {
+        "role": "assistant",
+        "content": "دلیل مرجوع کردن چیه؟"
+      },
+      {
+        "role": "user",
+        "content": "کالا آسیب دیده به دستم رسیده."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "چه کار باید بکنم؟"
+      }
+    ],
+    "answer": "refund"
+  },
+
+  {
+    "id": 34,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "یه موس بی‌سیم میخوام."
+      },
+      {
+        "role": "assistant",
+        "content": "چه بودجه‌ای دارید؟"
+      },
+      {
+        "role": "user",
+        "content": "تا یک میلیون."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "اونی که باتری بهتری داره رو میخوام."
+      }
+    ],
+    "answer": "shop"
+  },
+
+  {
+    "id": 35,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سفارش 111 رو میخوام لغو کنم."
+      },
+      {
+        "role": "assistant",
+        "content": "آیا سفارش وارد فرآیند ارسال شده؟"
+      },
+      {
+        "role": "user",
+        "content": "آره، ارسال شده."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "حالا باید چیکار کنم؟"
+      }
+    ],
+    "answer": "refund"
+  },
+
+  {
+    "id": 36,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سلام، امروز خیلی خسته‌ام."
+      },
+      {
+        "role": "assistant",
+        "content": "امیدوارم حالتون بهتر بشه."
+      },
+      {
+        "role": "user",
+        "content": "مرسی، فقط خواستم یه کم صحبت کنم."
+      }
+    ],
+    "answer": "chat"
+  },
+
+  {
+    "id": 37,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "یه سفارش ثبت کردم."
+      },
+      {
+        "role": "assistant",
+        "content": "شماره سفارش رو دارید؟"
+      },
+      {
+        "role": "user",
+        "content": "شماره‌ش 222 هست."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "چه محصولاتی توی این سفارشه؟"
+      }
+    ],
+    "answer": "database"
+  },
+
+  {
+    "id": 38,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "میخوام یه کالا بخرم."
+      },
+      {
+        "role": "assistant",
+        "content": "چه محصولی مدنظرتونه؟"
+      },
+      {
+        "role": "user",
+        "content": "کیبورد مکانیکی."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "ترجیحاً زیر 5 میلیون."
+      }
+    ],
+    "answer": "shop"
+  },
+
+  {
+    "id": 39,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "کالایی که گرفتم مشکل داره."
+      },
+      {
+        "role": "assistant",
+        "content": "مشکل محصول چیه؟"
+      },
+      {
+        "role": "user",
+        "content": "فکر کنم نقص تولید باشه."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "گارانتی شاملش میشه؟"
+      }
+    ],
+    "answer": "rag"
+  },
+
+  {
+    "id": 40,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سفارش 333 رو چند وقت پیش ثبت کردم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "مبلغی که پرداخت کردم رو هم می‌تونی ببینی؟"
+      }
+    ],
+    "answer": "database"
+  },
+
+  {
+    "id": 41,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "میخوام کالامو پس بدم."
+      },
+      {
+        "role": "assistant",
+        "content": "دلیل بازگشت محصول چیست؟"
+      },
+      {
+        "role": "user",
+        "content": "فقط دیگه نمیخوامش."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "مبلغش چطوری برمیگرده؟"
+      }
+    ],
+    "answer": "refund"
+  },
+
+  {
+    "id": 42,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "یه پرینتر میخوام."
+      },
+      {
+        "role": "assistant",
+        "content": "چه نوع پرینتری مدنظرتونه؟"
+      },
+      {
+        "role": "user",
+        "content": "برای استفاده خونگی."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "مدل‌های موجود رو داری؟"
+      }
+    ],
+    "answer": "shop"
+  },
+
+  {
+    "id": 43,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "محصولی که گرفتم رو میخوام پس بدم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "چند روز برای این کار وقت دارم؟"
+      }
+    ],
+    "answer": "rag"
+  },
+
+  {
+    "id": 44,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سفارش 444 هنوز به دستم نرسیده."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "میخوام جزئیات ارسالش رو ببینم."
+      }
+    ],
+    "answer": "database"
+  },
+
+  {
+    "id": 45,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سلام، یه سوال داشتم."
+      },
+      {
+        "role": "assistant",
+        "content": "حتماً، بفرمایید."
+      },
+      {
+        "role": "user",
+        "content": "راستی امیدوارم روز خوبی داشته باشی."
+      }
+    ],
+    "answer": "chat"
+  },
+
+  {
+    "id": 46,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سفارشم رو کنسل کردم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "پولش هنوز برنگشته."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "معمولاً چقدر طول میکشه؟"
+      }
+    ],
+    "answer": "rag"
+  },
+
+  {
+    "id": 47,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "یه کارت گرافیک میخوام."
+      },
+      {
+        "role": "assistant",
+        "content": "چه بودجه‌ای در نظر دارید؟"
+      },
+      {
+        "role": "user",
+        "content": "تا 30 میلیون."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "مدل‌های موجود رو بررسی کن."
+      }
+    ],
+    "answer": "shop"
+  },
+
+  {
+    "id": 48,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سفارش 555 رو میخوام ببینم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "اسم محصول داخلش چی بود؟"
+      }
+    ],
+    "answer": "database"
+  },
+
+  {
+    "id": 49,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "کالایی که گرفتم خراب شده."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "اگه هنوز گارانتی داشته باشه چی؟"
+      }
+    ],
+    "answer": "rag"
+  },
+
+  {
+    "id": 50,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "میخوام سفارش 666 رو لغو کنم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "هنوز ارسال نشده."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "انجامش بده."
+      }
+    ],
+    "answer": "refund"
+  },
+
+  {
+    "id": 51,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "یه صندلی گیمینگ میخوام."
+      },
+      {
+        "role": "assistant",
+        "content": "چه بودجه‌ای دارید؟"
+      },
+      {
+        "role": "user",
+        "content": "تا 10 میلیون."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "چند مدل مناسب پیدا کن."
+      }
+    ],
+    "answer": "shop"
+  },
+
+  {
+    "id": 52,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "میخوام یه کالایی رو برگردونم."
+      },
+      {
+        "role": "assistant",
+        "content": "حتماً."
+      },
+      {
+        "role": "user",
+        "content": "البته هنوز تحویلش نگرفتم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "پس باید چیکار کنم؟"
+      }
+    ],
+    "answer": "refund"
+  },
+
+  {
+    "id": 53,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سفارش 777 رو ثبت کردم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "می‌تونی وضعیت فعلیش رو بهم بگی؟"
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "آدرس تحویلش رو هم می‌خوام بدونم."
+      }
+    ],
+    "answer": "database"
+  },
+
+  {
+    "id": 54,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "سلام."
+      },
+      {
+        "role": "assistant",
+        "content": "سلام! چطور می‌تونم کمکتون کنم؟"
+      },
+      {
+        "role": "user",
+        "content": "فعلاً کاری ندارم، ممنون."
+      }
+    ],
+    "answer": "chat"
+  },
+
+  {
+    "id": 55,
+    "conversation": [
+      {
+        "role": "user",
+        "content": "محصولی که خریدم رو میخوام مرجوع کنم."
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "اگه فقط نظرم عوض شده باشه چی؟"
+      },
+      {
+        "role": "assistant",
+        "content": "..."
+      },
+      {
+        "role": "user",
+        "content": "هزینه برگشت رو کی باید بده؟"
+      }
+    ],
+    "answer": "rag"
+  }
+]
