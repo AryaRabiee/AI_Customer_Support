@@ -1,20 +1,20 @@
-from graph.state import SupportState , RefundOutput
-from db.models import Order , Product
-from db.database import SessionLocal
+from app.graph.state import SupportState , RefundOutput
+from app.db.models import Order , Product
+from app.db.database import SessionLocal
 from sqlalchemy import select
 from datetime import datetime
 from langchain_openai import ChatOpenAI
-from utils.prompts import REFUND_AGENT_PROMPT
+from app.utils.prompts import REFUND_AGENT_PROMPT
 from langchain.messages import SystemMessage , AIMessage
-from utils.db_utils import get_data,save_to_expert , check_product_rule
-from tools.refund.find_product import find_product
-from tools.refund.check_rule import check_rule
-from tools.refund.save_refund import save_refund
+from app.utils.db_utils import get_data,save_to_expert , check_product_rule
+from app.tools.refund.find_product import find_product
+from app.tools.refund.check_rule import check_rule
+from app.tools.refund.save_refund import save_refund
 import os
-from utils.call_llm import call_llm
+from app.utils.call_llm import call_llm
 from dotenv import load_dotenv
 import logging
-from utils.call_llm import call_llm_with_tools
+from app.utils.call_llm import call_llm_with_tools
 
 logger = logging.getLogger(__name__)
 load_dotenv()
@@ -27,9 +27,6 @@ model = ChatOpenAI(
     api_key=api_key,
     base_url=base_url
 )
-
-
-model_with_output = model.with_structured_output(RefundOutput)
 
 def refund_agent(state: SupportState):
     logger.info("START FUNC REFUND")
