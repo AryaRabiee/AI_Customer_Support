@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a4f7f 100%);
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -23,8 +23,8 @@
 
         .container {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(30, 58, 95, 0.2);
             overflow: hidden;
             max-width: 900px;
             width: 100%;
@@ -33,32 +33,51 @@
         }
 
         .form-section {
-            padding: 50px;
+            padding: 60px 50px;
             display: flex;
             flex-direction: column;
             justify-content: center;
         }
 
         .image-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a4f7f 100%);
             color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             padding: 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
 
         .image-section h2 {
-            font-size: 2em;
-            margin-bottom: 20px;
+            font-size: 2.1em;
+            margin-bottom: 25px;
             text-align: center;
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .image-icon {
-            font-size: 6em;
-            margin-bottom: 20px;
+            font-size: 5em;
+            margin-bottom: 25px;
             animation: float 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
         }
 
         @keyframes float {
@@ -67,47 +86,52 @@
         }
 
         .image-section p {
-            font-size: 1.1em;
+            font-size: 1.05em;
             text-align: center;
             opacity: 0.9;
             line-height: 1.8;
+            position: relative;
+            z-index: 1;
+            max-width: 350px;
         }
 
         .logo {
-            font-size: 1.8em;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 30px;
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #1e3a5f;
+            margin-bottom: 40px;
             text-align: center;
+            letter-spacing: -0.5px;
         }
 
         .tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            border-bottom: 2px solid #e0e0e0;
+            gap: 0;
+            margin-bottom: 40px;
+            border-bottom: 2px solid #e8e8e8;
         }
 
         .tab-btn {
             flex: 1;
-            padding: 15px;
+            padding: 16px 20px;
             background: none;
             border: none;
             cursor: pointer;
             color: #999;
-            font-weight: bold;
-            font-size: 1em;
+            font-weight: 600;
+            font-size: 0.95em;
             border-bottom: 3px solid transparent;
             transition: all 0.3s;
+            letter-spacing: 0.3px;
         }
 
         .tab-btn.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
+            color: #1e3a5f;
+            border-bottom-color: #1e3a5f;
         }
 
         .tab-btn:hover {
-            color: #667eea;
+            color: #1e3a5f;
         }
 
         .tab-content {
@@ -116,87 +140,131 @@
 
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 8px;
-            color: #333;
-            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1e3a5f;
+            font-weight: 600;
+            font-size: 0.95em;
+            letter-spacing: 0.3px;
         }
 
         .form-group input {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
+            padding: 13px 16px;
+            border: 2px solid #e8e8e8;
             border-radius: 8px;
-            font-size: 1em;
-            transition: border-color 0.3s;
+            font-size: 0.95em;
+            transition: all 0.3s;
+            background: #f9f9f9;
         }
 
         .form-group input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1e3a5f;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.08);
+        }
+
+        .form-group input::placeholder {
+            color: #aaa;
         }
 
         .submit-btn {
             width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 14px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a4f7f 100%);
             color: white;
             border: none;
             border-radius: 8px;
-            font-weight: bold;
-            font-size: 1em;
+            font-weight: 600;
+            font-size: 0.95em;
             cursor: pointer;
             transition: all 0.3s;
-            margin-top: 10px;
+            margin-top: 15px;
+            letter-spacing: 0.3px;
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 8px 20px rgba(30, 58, 95, 0.25);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
         }
 
         .message {
-            padding: 12px;
+            padding: 14px 16px;
             border-radius: 8px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             display: none;
+            font-size: 0.95em;
+            font-weight: 500;
+            border-left: 4px solid;
         }
 
         .message.active {
             display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #e8f5e9;
+            color: #1b5e20;
+            border-left-color: #4caf50;
         }
 
         .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: #ffebee;
+            color: #b71c1c;
+            border-left-color: #f44336;
         }
 
         .back-link {
             text-align: center;
-            margin-top: 20px;
+            margin-top: 25px;
         }
 
         .back-link a {
-            color: #667eea;
+            color: #1e3a5f;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
+            font-size: 0.95em;
+            transition: all 0.3s;
         }
 
         .back-link a:hover {
+            color: #2a4f7f;
             text-decoration: underline;
         }
 
@@ -210,7 +278,16 @@
             }
 
             .form-section {
-                padding: 30px;
+                padding: 40px 30px;
+            }
+
+            .logo {
+                font-size: 1.4em;
+                margin-bottom: 30px;
+            }
+
+            .tabs {
+                margin-bottom: 30px;
             }
         }
     </style>
@@ -219,7 +296,7 @@
     <div class="container">
         <!-- Form Section -->
         <div class="form-section">
-            <div class="logo">🤖 Smart Support</div>
+            <div class="logo">🤖 دستیار مشتری</div>
 
             <div class="tabs">
                 <button class="tab-btn active" onclick="switchTab('login')">ورود</button>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>پشتیبانی هوشمند | چت کوچک با توضیحات ویژه</title>
+    <title>پشتیبانی هوشمند | دستیار مشتری</title>
     <style>
         /* ===== RESET & BASE ===== */
         * {
@@ -14,7 +14,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(145deg, #f6f9fc 0%, #e9f0f5 100%);
+            background: linear-gradient(145deg, #f5f7fa 0%, #eef2f7 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -23,14 +23,13 @@
 
         /* ===== NAVBAR ===== */
         nav {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
+            background: white;
             padding: 1rem 2.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+            border-bottom: 1px solid #e8edf2;
+            box-shadow: 0 2px 8px rgba(30, 58, 95, 0.06);
             position: sticky;
             top: 0;
             z-index: 10;
@@ -42,8 +41,10 @@
             gap: 12px;
             font-weight: 700;
             font-size: 1.3rem;
-            color: #2b3c5e;
+            color: #1e3a5f;
+            letter-spacing: -0.5px;
         }
+
         .logo span:first-child {
             font-size: 1.8rem;
         }
@@ -58,27 +59,31 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            background: rgba(0, 0, 0, 0.04);
-            padding: 8px 18px;
+            background: #f5f7fa;
+            padding: 10px 18px;
             border-radius: 30px;
-            font-weight: 500;
-            color: #2d3748;
+            font-weight: 600;
+            color: #1e3a5f;
+            font-size: 0.95em;
         }
 
         .logout-btn {
-            background: #edf2f7;
-            border: none;
-            padding: 8px 20px;
+            background: white;
+            border: 2px solid #1e3a5f;
+            padding: 10px 22px;
             border-radius: 30px;
             font-weight: 600;
-            color: #4a5568;
+            color: #1e3a5f;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
+            font-size: 0.95em;
         }
+
         .logout-btn:hover {
-            background: #e2e8f0;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            background: #1e3a5f;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.15);
         }
 
         /* ===== MAIN LAYOUT ===== */
@@ -97,54 +102,56 @@
         /* ---- CENTER: CHAT ---- */
         .chat-container {
             background: white;
-            border-radius: 28px;
-            box-shadow: 0 20px 60px rgba(0, 20, 40, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 8px 24px rgba(30, 58, 95, 0.1);
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            transition: all 0.2s;
+            transition: all 0.3s;
             height: 700px;
             max-height: 85vh;
-            border: 1px solid rgba(255, 255, 255, 0.5);
+            border: 1px solid #e8edf2;
         }
 
         .chat-header {
-            background: linear-gradient(135deg, #4a6cf7 0%, #6a3de8 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a4f7f 100%);
             color: white;
             padding: 24px 28px;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+            border-bottom: none;
         }
 
         .chat-header h2 {
             font-size: 1.3rem;
-            font-weight: 600;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 10px;
+            letter-spacing: -0.3px;
         }
+
         .chat-header h2 .status-indicator {
             display: inline-block;
             width: 10px;
             height: 10px;
-            background: #68d391;
+            background: #4caf50;
             border-radius: 50%;
             animation: pulse 2s infinite;
         }
+
         @keyframes pulse {
-            0%,
-            100% {
+            0%, 100% {
                 opacity: 1;
             }
             50% {
-                opacity: 0.4;
+                opacity: 0.5;
             }
         }
 
         .chat-header p {
             font-size: 0.9rem;
-            opacity: 0.85;
-            margin-top: 6px;
-            font-weight: 300;
+            opacity: 0.88;
+            margin-top: 8px;
+            font-weight: 400;
         }
 
         .messages {
@@ -154,72 +161,87 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            background: #fafcff;
+            background: #fafbfc;
         }
 
-        /* ===== چیدمان پیام‌ها (کاربر راست، ربات چپ) ===== */
+        .messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 3px;
+        }
+
+        .messages::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+
+        /* ===== چیدمان پیام‌ها ===== */
         .message {
             display: flex;
             align-items: flex-end;
-            animation: slideUp 0.25s ease-out;
+            animation: slideUp 0.3s ease-out;
             gap: 12px;
             margin-bottom: 8px;
         }
 
-        /* کاربر → راست */
         .message.user {
-            justify-content: flex-end;   /* کل محتوا در ابتدای راست */
-            flex-direction: row-reverse;   /* آواتار چپ، متن راست */
+            justify-content: flex-end;
+            flex-direction: row-reverse;
         }
 
-        /* ربات → چپ */
         .message.bot {
-            justify-content: flex-end;     /* کل محتوا در انتهای چپ */
-            flex-direction: row;           /* آواتار راست، متن چپ */
+            justify-content: flex-start;
+            flex-direction: row-reverse;
         }
 
         .message-content {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
             max-width: 65%;
         }
 
         .message.user .message-content {
-            align-items: flex-end;         /* متن به راست چسبیده */
+            align-items: flex-end;
         }
 
         .message.bot .message-content {
-            align-items: flex-start;       /* متن به چپ چسبیده */
+            align-items: flex-start;
         }
 
         .message-bubble {
-            padding: 13px 20px;
-            border-radius: 16px;
+            padding: 13px 18px;
+            border-radius: 14px;
             word-wrap: break-word;
-            line-height: 1.5;
+            line-height: 1.6;
             font-size: 0.95rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
         }
 
         .message.user .message-bubble {
-            background: linear-gradient(135deg, #4a6cf7 0%, #6a3de8 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a4f7f 100%);
             color: white;
-            border-radius: 18px 18px 6px 18px;
+            border-radius: 14px 14px 2px 14px;
         }
 
         .message.bot .message-bubble {
             background: white;
             color: #2d3748;
-            border-radius: 18px 18px 18px 6px;
-            border: 1px solid #eef2f6;
+            border-radius: 14px 14px 14px 2px;
+            border: 1px solid #e8edf2;
         }
 
         .message-time {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             opacity: 0.5;
             padding: 0 8px;
-            margin-top: 2px;
+            margin-top: 4px;
         }
 
         .message.user .message-time {
@@ -233,7 +255,7 @@
         @keyframes slideUp {
             from {
                 opacity: 0;
-                transform: translateY(12px);
+                transform: translateY(10px);
             }
             to {
                 opacity: 1;
@@ -254,12 +276,14 @@
             flex-shrink: 0;
             margin-bottom: 4px;
         }
+
         .bot-avatar {
-            background: linear-gradient(135deg, #4a6cf7, #6a3de8);
+            background: linear-gradient(135deg, #1e3a5f, #2a4f7f);
             color: white;
         }
+
         .user-avatar {
-            background: #4a6cf7;
+            background: #1e3a5f;
             color: white;
         }
 
@@ -272,12 +296,14 @@
             color: #a0aec0;
             text-align: center;
         }
+
         .empty-state-icon {
             font-size: 4rem;
             margin-bottom: 16px;
         }
+
         .empty-state p:first-of-type {
-            font-weight: 500;
+            font-weight: 600;
             color: #4a5568;
             font-size: 1.05rem;
         }
@@ -286,82 +312,94 @@
         .input-area {
             padding: 18px 24px;
             background: white;
-            border-top: 1px solid #edf2f7;
+            border-top: 1px solid #e8edf2;
             display: flex;
             gap: 12px;
             align-items: flex-end;
         }
+
         .input-wrapper {
             flex: 1;
             display: flex;
             gap: 10px;
         }
+
         .input-field {
             flex: 1;
-            padding: 13px 18px;
-            border: 1.5px solid #e2e8f0;
-            border-radius: 24px;
+            padding: 12px 16px;
+            border: 2px solid #e8edf2;
+            border-radius: 10px;
             font-size: 0.95rem;
             font-family: inherit;
-            transition: border 0.2s, box-shadow 0.2s;
+            transition: all 0.3s;
             resize: none;
             max-height: 100px;
-            background: #f7fafc;
+            background: #f5f7fa;
         }
+
         .input-field:focus {
             outline: none;
-            border-color: #4a6cf7;
-            box-shadow: 0 0 0 3px rgba(74, 108, 247, 0.12);
+            border-color: #1e3a5f;
             background: white;
+            box-shadow: 0 0 0 3px rgba(30, 58, 95, 0.1);
         }
+
+        .input-field::placeholder {
+            color: #a0aec0;
+        }
+
         .send-btn {
-            background: linear-gradient(135deg, #4a6cf7, #6a3de8);
+            background: linear-gradient(135deg, #1e3a5f, #2a4f7f);
             color: white;
             border: none;
-            padding: 13px 24px;
-            border-radius: 30px;
+            padding: 12px 28px;
+            border-radius: 10px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: 0.95rem;
+            gap: 8px;
+            font-size: 0.95em;
         }
+
         .send-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(74, 108, 247, 0.3);
+            box-shadow: 0 6px 16px rgba(30, 58, 95, 0.2);
         }
+
         .send-btn:active {
-            transform: scale(0.97);
+            transform: scale(0.98);
         }
 
         /* Typing */
         .typing-indicator {
             display: flex;
-            gap: 4px;
+            gap: 5px;
             padding: 10px 16px;
             background: white;
-            border-radius: 16px;
-            border: 1px solid #e2e8f0;
+            border-radius: 14px;
+            border: 1px solid #e8edf2;
         }
+
         .typing-dot {
-            width: 7px;
-            height: 7px;
-            background: #4a6cf7;
+            width: 8px;
+            height: 8px;
+            background: #1e3a5f;
             border-radius: 50%;
             animation: typing 1.4s infinite;
         }
+
         .typing-dot:nth-child(2) {
             animation-delay: 0.2s;
         }
+
         .typing-dot:nth-child(3) {
             animation-delay: 0.4s;
         }
+
         @keyframes typing {
-            0%,
-            60%,
-            100% {
+            0%, 60%, 100% {
                 transform: translateY(0);
             }
             30% {
@@ -381,48 +419,61 @@
 
         .quick-card {
             background: white;
-            border-radius: 24px;
+            border-radius: 14px;
             padding: 20px 22px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.08);
+            border: 1px solid #e8edf2;
+            transition: all 0.3s;
         }
+
+        .quick-card:hover {
+            box-shadow: 0 6px 16px rgba(30, 58, 95, 0.12);
+        }
+
         .quick-card h4 {
             font-size: 0.9rem;
-            color: #4a6cf7;
+            color: #1e3a5f;
             margin-bottom: 14px;
             display: flex;
             align-items: center;
             gap: 8px;
+            font-weight: 700;
         }
+
         .quick-actions {
             display: flex;
             flex-direction: column;
             gap: 8px;
         }
+
         .quick-action-btn {
             width: 100%;
-            background: #f7fafc;
-            border: none;
+            background: #f5f7fa;
+            border: 1px solid #e8edf2;
             padding: 11px 14px;
-            border-radius: 12px;
+            border-radius: 10px;
             text-align: right;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 0.85rem;
             color: #2d3748;
             cursor: pointer;
-            transition: all 0.2s;
+            transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
         }
+
         .quick-action-btn:hover {
-            background: #eef2f6;
-            transform: translateX(-4px);
+            background: #eef2f7;
+            border-color: #1e3a5f;
+            transform: translateX(-2px);
         }
+
         .quick-action-btn.active {
-            background: linear-gradient(135deg, #4a6cf7, #6a3de8);
+            background: linear-gradient(135deg, #1e3a5f, #2a4f7f);
             color: white;
-            box-shadow: 0 4px 14px rgba(74, 108, 247, 0.25);
+            border-color: #1e3a5f;
+            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2);
         }
 
         /* ===== RIGHT PANEL ===== */
@@ -436,25 +487,27 @@
 
         .info-card {
             background: white;
-            border-radius: 24px;
+            border-radius: 14px;
             padding: 24px 26px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            transition: transform 0.2s;
+            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.08);
+            border: 1px solid #e8edf2;
+            transition: all 0.3s;
         }
+
         .info-card:hover {
-            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(30, 58, 95, 0.12);
+            transform: translateY(-2px);
         }
 
         .info-card .badge {
             display: inline-block;
-            background: linear-gradient(135deg, #4a6cf7, #6a3de8);
+            background: linear-gradient(135deg, #1e3a5f, #2a4f7f);
             color: white;
             font-size: 0.7rem;
             font-weight: 700;
-            padding: 4px 14px;
-            border-radius: 30px;
-            letter-spacing: 0.3px;
+            padding: 5px 14px;
+            border-radius: 20px;
+            letter-spacing: 0.5px;
             margin-bottom: 12px;
         }
 
@@ -463,30 +516,35 @@
             font-weight: 700;
             color: #1a202c;
             margin-bottom: 6px;
+            letter-spacing: -0.3px;
         }
+
         .info-card .sub {
-            color: #4a6cf7;
+            color: #1e3a5f;
             font-weight: 600;
             font-size: 0.85rem;
             margin-bottom: 14px;
             display: block;
         }
+
         .info-card p {
             color: #4a5568;
             line-height: 1.7;
             font-size: 0.9rem;
             margin-bottom: 12px;
         }
+
         .info-card .highlight {
-            background: #f0f4ff;
+            background: #f0f4f9;
             padding: 12px 16px;
-            border-radius: 14px;
-            border-right: 4px solid #4a6cf7;
+            border-radius: 10px;
+            border-right: 4px solid #1e3a5f;
             margin: 14px 0 8px;
-            font-weight: 500;
+            font-weight: 600;
             color: #2d3748;
             font-size: 0.9rem;
         }
+
         .info-card .emoji-big {
             font-size: 2rem;
             margin-left: 6px;
@@ -496,21 +554,25 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin: 12px 0 6px;
+            margin: 14px 0 8px;
         }
+
         .feature-item {
-            background: #f7fafc;
-            border-radius: 12px;
+            background: #f5f7fa;
+            border-radius: 10px;
             padding: 12px 10px;
             text-align: center;
             font-size: 0.8rem;
-            font-weight: 500;
+            font-weight: 600;
             color: #2d3748;
-            transition: background 0.2s;
+            transition: all 0.3s;
         }
+
         .feature-item:hover {
-            background: #edf2f7;
+            background: #eef2f7;
+            transform: translateY(-1px);
         }
+
         .feature-item span {
             display: block;
             font-size: 1.4rem;
@@ -521,37 +583,44 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            background: #f7fafc;
+            background: #f5f7fa;
             padding: 11px 14px;
-            border-radius: 14px;
+            border-radius: 10px;
             margin-top: 10px;
             font-size: 0.9rem;
+            border: 1px solid #e8edf2;
         }
+
         .contact-row a {
-            color: #4a6cf7;
+            color: #1e3a5f;
             text-decoration: none;
             font-weight: 600;
+            transition: color 0.3s;
         }
+
         .contact-row a:hover {
-            text-decoration: underline;
+            color: #2a4f7f;
         }
 
         .quote-box {
-            background: linear-gradient(145deg, #f0f4ff, #ffffff);
-            border-radius: 16px;
+            background: #f5f7fa;
+            border-radius: 12px;
             padding: 16px 20px;
-            border: 1px dashed #cbd5e0;
-            margin: 12px 0 4px;
+            border: 1px solid #e8edf2;
+            border-right: 3px solid #1e3a5f;
+            margin: 12px 0 8px;
             font-style: italic;
             color: #2d3748;
             font-size: 0.85rem;
+            line-height: 1.6;
         }
+
         .quote-box .author {
             display: block;
-            margin-top: 6px;
+            margin-top: 8px;
             font-style: normal;
             font-weight: 600;
-            color: #4a6cf7;
+            color: #1e3a5f;
             font-size: 0.8rem;
         }
 
@@ -562,6 +631,7 @@
                 padding: 24px 32px;
                 gap: 24px;
             }
+
             .chat-container {
                 height: 650px;
             }
@@ -573,6 +643,7 @@
                 gap: 20px;
                 padding: 20px 24px;
             }
+
             .sidebar {
                 grid-column: 1 / -1;
                 display: grid;
@@ -581,13 +652,16 @@
                 position: relative;
                 top: 0;
             }
+
             .quick-card:last-child {
                 grid-column: 1 / -1;
             }
+
             .chat-container {
                 height: 600px;
                 grid-column: 1;
             }
+
             .info-panel {
                 grid-column: 2;
                 grid-row: 1;
@@ -595,62 +669,79 @@
         }
 
         @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 12px;
+                padding: 1rem;
+            }
+
+            .logo {
+                font-size: 1.1rem;
+            }
+
             .main-container {
                 grid-template-columns: 1fr;
                 gap: 16px;
                 padding: 16px;
             }
+
             .sidebar {
                 grid-template-columns: 1fr;
                 grid-column: auto;
             }
+
             .chat-container {
                 height: 500px;
-                border-radius: 20px;
+                border-radius: 14px;
             }
+
             .chat-header {
                 padding: 16px 18px;
             }
+
             .chat-header h2 {
                 font-size: 1.1rem;
             }
+
             .messages {
                 padding: 14px;
             }
+
             .input-area {
                 padding: 12px 14px;
                 flex-wrap: wrap;
             }
+
             .input-wrapper {
                 flex: 1 1 100%;
             }
+
             .send-btn {
                 width: 100%;
                 justify-content: center;
                 padding: 12px;
             }
+
             .info-panel {
                 position: relative;
                 top: 0;
                 grid-column: auto;
             }
+
             .info-card {
                 padding: 18px 20px;
             }
+
             .feature-grid {
                 grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 600px) {
-            nav {
-                flex-direction: column;
-                gap: 12px;
-                padding: 1rem;
+            .main-container {
+                padding: 12px;
             }
-            .logo {
-                font-size: 1.1rem;
-            }
+
             .chat-container {
                 height: 450px;
             }
@@ -663,7 +754,7 @@
     <nav>
         <div class="logo">
             <span>💬</span>
-            <span>پشتیبان هوشمند</span>
+            <span>دستیار مشتری</span>
         </div>
         <div class="nav-right">
             <div class="user-info">
@@ -679,18 +770,7 @@
 
         <!-- ===== SIDEBAR ===== -->
         <aside class="sidebar">
-            <div class="quick-card">
-                <h4>⚡ دسترسی سریع</h4>
-                <div class="quick-actions">
-                    <button class="quick-action-btn active" onclick="insertMessage('پیگیری سفارش')">📦 پیگیری سفارش</button>
-                    <button class="quick-action-btn" onclick="insertMessage('تغییر آدرس')">📍 تغییر آدرس</button>
-                    <button class="quick-action-btn" onclick="insertMessage('ایجاد تیکت')">🎫 ایجاد تیکت</button>
-                    <button class="quick-action-btn" onclick="insertMessage('وضعیت حساب')">👤 وضعیت حساب</button>
-                    <button class="quick-action-btn" onclick="insertMessage('سؤالات متداول')">❓ سؤالات متداول</button>
-                    <button class="quick-action-btn" onclick="insertMessage('تماس با پشتیبانی')">📞 تماس مستقیم</button>
-                </div>
-            </div>
-            <div class="quick-card" style="background: linear-gradient(135deg, #f0f4ff, #ffffff);">
+            <div class="quick-card" style="background: linear-gradient(135deg, #f0f4f9, #ffffff); border-color: #e8edf2;">
                 <h4>📌 نکته</h4>
                 <p style="font-size:0.85rem; color:#4a5568; line-height:1.6;">
                     پاسخگوی شما در کمتر از <strong>۲ دقیقه</strong> هستیم.
@@ -705,7 +785,7 @@
                     <span class="status-indicator"></span>
                     گفتگو با پشتیبان
                 </h2>
-                <p>سوال خود را مطرح کنید یا از دکمه‌های سمت چپ استفاده کنید.</p>
+                <p>سوال خود را مطرح کنید .</p>
             </div>
 
             <div class="messages" id="messagesContainer">
@@ -759,19 +839,19 @@
                     <span>📱</span>
                     <strong>۰۲۱-۱۲۳۴۵۶۷</strong>
                 </div>
-                <div class="contact-row" style="background: #eef2f6; border: 1px solid #e2e8f0;">
+                <div class="contact-row">
                     <span>🕘</span>
                     <span>شنبه تا پنج‌شنبه ۹ الی ۲۲</span>
                 </div>
             </div>
 
-            <div class="info-card" style="background: linear-gradient(145deg, #4a6cf7, #6a3de8); color: white; border: none;">
+            <div class="info-card" style="background: linear-gradient(135deg, #1e3a5f, #2a4f7f); color: white; border: none;">
                 <div class="emoji-big">💬</div>
                 <h3 style="color: white; font-size:1.2rem;">نظر شما برای ما مهم است</h3>
                 <p style="color: rgba(255,255,255,0.9); font-size: 0.85rem;">
                     با نظرات ارزشمند خود به ما در بهبود کیفیت خدمات کمک کنید.
                 </p>
-                <div style="margin-top: 14px; background: rgba(255,255,255,0.15); border-radius: 16px; padding: 12px 16px; backdrop-filter: blur(4px); font-size: 0.85rem;">
+                <div style="margin-top: 14px; background: rgba(255,255,255,0.15); border-radius: 10px; padding: 12px 16px; backdrop-filter: blur(4px); font-size: 0.85rem; border: 1px solid rgba(255,255,255,0.2);">
                     <span style="font-weight: 600;">🌟 امتیاز شما:</span>
                     <span style="letter-spacing: 3px; margin-left: 6px;">★★★★★</span>
                 </div>
@@ -782,7 +862,7 @@
                     "پشتیبانی عالی، پاسخ‌ها بسیار سریع و حرفه‌ای بود. از شما ممنونم."
                     <span class="author">— علی محمدی، مشتری</span>
                 </div>
-                <div class="quote-box" style="border-color: #4a6cf7;">
+                <div class="quote-box">
                     "تجربه‌ی عالی، حتماً به دوستانم توصیه می‌کنم."
                     <span class="author">— سارا احمدی</span>
                 </div>
@@ -792,149 +872,495 @@
     </div>
 
     <!-- ===== SCRIPTS ===== -->
-    <script>
-        // ---- Get user ----
-        async function getCurrentUser() {
-            try {
-                const res = await fetch('/api/auth/me', { credentials: 'include' });
-                if (!res.ok) { window.location.href = '/login'; return; }
-                const data = await res.json();
-                document.getElementById('userName').textContent = data.name || 'کاربر';
-                return data;
-            } catch (_) {
-                window.location.href = '/login';
-            }
-        }
+<script>
+// =========================================================
+// Get current user
+// =========================================================
 
-        // ---- Logout ----
-        function logout() {
-            fetch('/api/auth/logout', { method: 'POST', credentials: 'include' })
-                .then(() => window.location.href = '/login');
-        }
-
-        // ---- Quick actions ----
-        function insertMessage(text) {
-            document.getElementById('messageInput').value = text;
-            document.getElementById('messageInput').focus();
-        }
-
-        // ---- Send message ----
-        async function sendMessage() {
-            const input = document.getElementById('messageInput');
-            const msg = input.value.trim();
-            if (!msg) return;
-
-            const container = document.getElementById('messagesContainer');
-            if (container.querySelector('.empty-state')) container.innerHTML = '';
-
-            // USER MESSAGE (right side)
-            const userDiv = document.createElement('div');
-            userDiv.className = 'message user';
-            userDiv.innerHTML = `
-                <div class="user-avatar">👤</div>
-                <div class="message-content">
-                    <div class="message-bubble">${escapeHtml(msg)}</div>
-                    <div class="message-time">${getTime()}</div>
-                </div>
-            `;
-            container.appendChild(userDiv);
-            input.value = '';
-            input.style.height = 'auto';
-            container.scrollTop = container.scrollHeight;
-
-            // Typing indicator (bot, left side)
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'message bot';
-            typingDiv.id = 'typingIndicator';
-            typingDiv.innerHTML = `
-                <div class="bot-avatar">🤖</div>
-                <div class="typing-indicator">
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                    <div class="typing-dot"></div>
-                </div>
-            `;
-            container.appendChild(typingDiv);
-            container.scrollTop = container.scrollHeight;
-
-            try {
-                const res = await fetch('/api/chat/message', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    credentials: 'include',
-                    body: JSON.stringify({ message: msg })
-                });
-                if (!res.ok) throw new Error('خطا');
-                const data = await res.json();
-
-                document.getElementById('typingIndicator')?.remove();
-
-                setTimeout(() => {
-                    // BOT MESSAGE (left side)
-                    const botDiv = document.createElement('div');
-                    botDiv.className = 'message bot';
-                    botDiv.innerHTML = `
-                        <div class="bot-avatar">🤖</div>
-                        <div class="message-content">
-                            <div class="message-bubble">${formatMessage(data.response)}</div>
-                            <div class="message-time">${getTime()}</div>
-                        </div>
-                    `;
-                    container.appendChild(botDiv);
-                    container.scrollTop = container.scrollHeight;
-                }, 300);
-
-            } catch (err) {
-                document.getElementById('typingIndicator')?.remove();
-                const errDiv = document.createElement('div');
-                errDiv.className = 'message bot';
-                errDiv.innerHTML = `
-                    <div class="bot-avatar">🤖</div>
-                    <div class="message-content">
-                        <div class="message-bubble">❌ متأسفانه خطایی رخ داد. لطفاً دوباره تلاش کنید.</div>
-                        <div class="message-time">${getTime()}</div>
-                    </div>
-                `;
-                container.appendChild(errDiv);
-                container.scrollTop = container.scrollHeight;
-            }
-        }
-
-        // ---- Helpers ----
-        function getTime() {
-            return new Date().toLocaleTimeString('fa-IR', { hour: '2-digit', minute: '2-digit' });
-        }
-
-        function escapeHtml(text) {
-            const d = document.createElement('div');
-            d.textContent = text;
-            return d.innerHTML;
-        }
-
-        function formatMessage(text) {
-            return text
-                .replace(/\n/g, '<br>')
-                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                .replace(/\*(.*?)\*/g, '<em>$1</em>');
-        }
-
-        // ---- Auto resize textarea ----
-        document.getElementById('messageInput').addEventListener('input', function() {
-            this.style.height = 'auto';
-            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+async function getCurrentUser() {
+    try {
+        const res = await fetch('/api/auth/me', {
+            credentials: 'include'
         });
 
-        // ---- Enter to send ----
-        document.getElementById('messageInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
+        if (!res.ok) {
+            window.location.href = '/login';
+            return null;
+        }
+
+        const data = await res.json();
+
+        document.getElementById('userName').textContent =
+            data.name || 'کاربر';
+
+        return data;
+
+    } catch (_) {
+        window.location.href = '/login';
+        return null;
+    }
+}
+
+
+// =========================================================
+// Logout
+// =========================================================
+
+function logout() {
+    fetch('/api/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+    })
+    .then(() => {
+        window.location.href = '/login';
+    });
+}
+
+
+// =========================================================
+// Quick actions
+// =========================================================
+
+function insertMessage(text) {
+    const input = document.getElementById('messageInput');
+
+    input.value = text;
+    input.focus();
+}
+
+
+// =========================================================
+// Add message to UI
+// =========================================================
+
+function addMessageToUI(role, content) {
+
+    const container =
+        document.getElementById('messagesContainer');
+
+    const div = document.createElement('div');
+
+
+    // -----------------------------------------------------
+    // User message
+    // -----------------------------------------------------
+
+    if (role === 'human') {
+
+        div.className = 'message user';
+
+        div.innerHTML = `
+            <div class="user-avatar">👤</div>
+
+            <div class="message-content">
+                <div class="message-bubble">
+                    ${escapeHtml(content)}
+                </div>
+
+                <div class="message-time">
+                    ${getTime()}
+                </div>
+            </div>
+        `;
+    }
+
+
+    // -----------------------------------------------------
+    // Bot message
+    // -----------------------------------------------------
+
+    else if (role === 'ai') {
+
+        div.className = 'message bot';
+
+        div.innerHTML = `
+            <div class="bot-avatar">🤖</div>
+
+            <div class="message-content">
+                <div class="message-bubble">
+                    ${formatMessage(content)}
+                </div>
+
+                <div class="message-time">
+                    ${getTime()}
+                </div>
+            </div>
+        `;
+    }
+
+
+    container.appendChild(div);
+}
+
+
+// =========================================================
+// Load chat history
+// =========================================================
+
+async function loadChatHistory() {
+
+    try {
+
+        const res = await fetch('/api/chat/history', {
+            credentials: 'include'
+        });
+
+        if (!res.ok) {
+            console.error('Failed to load chat history');
+            return;
+        }
+
+        const data = await res.json();
+
+        const container =
+            document.getElementById('messagesContainer');
+
+
+        // -------------------------------------------------
+        // No previous messages
+        // -------------------------------------------------
+
+        if (
+            !data.messages ||
+            data.messages.length === 0
+        ) {
+            return;
+        }
+
+
+        // -------------------------------------------------
+        // Remove empty state
+        // -------------------------------------------------
+
+        const emptyState = container.querySelector('.empty-state');
+        if (emptyState) {
+            emptyState.remove();
+        }
+
+
+        // -------------------------------------------------
+        // Render previous messages
+        // -------------------------------------------------
+
+        for (const message of data.messages) {
+
+            addMessageToUI(
+                message.role,
+                message.content
+            );
+        }
+
+
+        // -------------------------------------------------
+        // Scroll to bottom
+        // -------------------------------------------------
+
+        container.scrollTop =
+            container.scrollHeight;
+
+
+    } catch (err) {
+
+        console.error(
+            'Error loading chat history:',
+            err
+        );
+    }
+}
+
+
+// =========================================================
+// Send message
+// =========================================================
+
+async function sendMessage() {
+
+    const input =
+        document.getElementById('messageInput');
+
+    const msg = input.value.trim();
+
+    if (!msg) {
+        return;
+    }
+
+
+    const container =
+        document.getElementById('messagesContainer');
+
+
+    // -----------------------------------------------------
+    // Remove empty state
+    // -----------------------------------------------------
+
+    const emptyState = container.querySelector('.empty-state');
+    if (emptyState) {
+        emptyState.remove();
+    }
+
+
+    // -----------------------------------------------------
+    // USER MESSAGE
+    // -----------------------------------------------------
+
+    addMessageToUI(
+        'human',
+        msg
+    );
+
+
+    // -----------------------------------------------------
+    // Clear input
+    // -----------------------------------------------------
+
+    input.value = '';
+
+    input.style.height = 'auto';
+
+
+    // -----------------------------------------------------
+    // Scroll down
+    // -----------------------------------------------------
+
+    container.scrollTop =
+        container.scrollHeight;
+
+
+    // -----------------------------------------------------
+    // Typing indicator
+    // -----------------------------------------------------
+
+    const typingDiv =
+        document.createElement('div');
+
+    typingDiv.className = 'message bot';
+
+    typingDiv.id = 'typingIndicator';
+
+    typingDiv.innerHTML = `
+        <div class="bot-avatar">🤖</div>
+
+        <div class="typing-indicator">
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+            <div class="typing-dot"></div>
+        </div>
+    `;
+
+    container.appendChild(typingDiv);
+
+    container.scrollTop =
+        container.scrollHeight;
+
+
+    // -----------------------------------------------------
+    // Send request
+    // -----------------------------------------------------
+
+    try {
+
+        const res = await fetch(
+            '/api/chat/message',
+            {
+                method: 'POST',
+
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                credentials: 'include',
+
+                body: JSON.stringify({
+                    message: msg
+                })
+            }
+        );
+
+
+        if (!res.ok) {
+            throw new Error('خطا');
+        }
+
+
+        const data = await res.json();
+
+
+        // -------------------------------------------------
+        // Remove typing indicator
+        // -------------------------------------------------
+
+        document
+            .getElementById('typingIndicator')
+            ?.remove();
+
+
+        // -------------------------------------------------
+        // Add bot response
+        // -------------------------------------------------
+
+        setTimeout(() => {
+
+            addMessageToUI(
+                'ai',
+                data.response
+            );
+
+            container.scrollTop =
+                container.scrollHeight;
+
+        }, 300);
+
+
+    } catch (err) {
+
+        // -------------------------------------------------
+        // Remove typing indicator
+        // -------------------------------------------------
+
+        document
+            .getElementById('typingIndicator')
+            ?.remove();
+
+
+        // -------------------------------------------------
+        // Error message
+        // -------------------------------------------------
+
+        const errDiv =
+            document.createElement('div');
+
+        errDiv.className =
+            'message bot';
+
+        errDiv.innerHTML = `
+            <div class="bot-avatar">🤖</div>
+
+            <div class="message-content">
+
+                <div class="message-bubble">
+                    ❌ متأسفانه خطایی رخ داد.
+                    لطفاً دوباره تلاش کنید.
+                </div>
+
+                <div class="message-time">
+                    ${getTime()}
+                </div>
+
+            </div>
+        `;
+
+        container.appendChild(errDiv);
+
+        container.scrollTop =
+            container.scrollHeight;
+    }
+}
+
+
+// =========================================================
+// Helpers
+// =========================================================
+
+function getTime() {
+
+    return new Date().toLocaleTimeString(
+        'fa-IR',
+        {
+            hour: '2-digit',
+            minute: '2-digit'
+        }
+    );
+}
+
+
+function escapeHtml(text) {
+
+    const d =
+        document.createElement('div');
+
+    d.textContent = text;
+
+    return d.innerHTML;
+}
+
+
+function formatMessage(text) {
+
+    return text
+        .replace(/\n/g, '<br>')
+        .replace(
+            /\*\*(.*?)\*\*/g,
+            '<strong>$1</strong>'
+        )
+        .replace(
+            /\*(.*?)\*/g,
+            '<em>$1</em>'
+        );
+}
+
+
+// =========================================================
+// Auto resize textarea
+// =========================================================
+
+document
+    .getElementById('messageInput')
+    .addEventListener(
+        'input',
+        function() {
+
+            this.style.height = 'auto';
+
+            this.style.height =
+                Math.min(
+                    this.scrollHeight,
+                    100
+                ) + 'px';
+        }
+    );
+
+
+// =========================================================
+// Enter to send
+// =========================================================
+
+document
+    .getElementById('messageInput')
+    .addEventListener(
+        'keypress',
+        function(e) {
+
+            if (
+                e.key === 'Enter' &&
+                !e.shiftKey
+            ) {
+
                 e.preventDefault();
+
                 sendMessage();
             }
-        });
+        }
+    );
 
-        // ---- Init ----
-        window.addEventListener('load', getCurrentUser);
-    </script>
 
+// =========================================================
+// Init
+// =========================================================
+
+window.addEventListener(
+    'load',
+    async function() {
+
+        // First check authentication
+        const user = await getCurrentUser();
+
+        // If authenticated, load previous conversation
+        if (user) {
+            await loadChatHistory();
+        }
+    }
+);
+
+</script>
 </body>
 </html>

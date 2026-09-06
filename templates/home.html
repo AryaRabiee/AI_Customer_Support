@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دستیار مشتری هوشمند - خدمات دریافت الکترونیکی</title>
+    <title>دستیار مشتری</title>
     <style>
         * {
             margin: 0;
@@ -15,89 +15,59 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f8f9fa;
             line-height: 1.6;
+            color: #333;
         }
 
         /* Navbar */
         nav {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: white;
             padding: 1rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 12px rgba(30, 58, 95, 0.08);
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
         .logo {
-            color: white;
-            font-size: 1.5em;
-            font-weight: bold;
+            color: #1e3a5f;
+            font-size: 1.4em;
+            font-weight: 700;
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-            align-items: center;
+            letter-spacing: -0.5px;
         }
 
         nav a {
-            color: white;
+            color: #1e3a5f;
             text-decoration: none;
-            transition: opacity 0.3s;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: all 0.3s;
             font-weight: 500;
+            font-size: 0.95em;
         }
 
         nav a:hover {
-            opacity: 0.8;
+            background: #f0f4f9;
+            color: #2a4f7f;
         }
 
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
+        /* Container */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .nav-btn {
-            padding: 10px 20px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            border: 2px solid white;
-            color: white;
-            cursor: pointer;
-        }
-
-        .nav-btn-primary {
-            background: white;
-            color: #667eea;
-        }
-
-        .nav-btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .nav-btn-secondary {
-            background: transparent;
-            border-color: white;
-        }
-
-        .nav-btn-secondary:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-2px);
-        }
-
-        /* Hero Section */
+        /* Hero */
         .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a4f7f 100%);
             color: white;
-            padding: 120px 20px;
+            padding: 100px 20px;
             text-align: center;
             position: relative;
             overflow: hidden;
@@ -106,238 +76,127 @@
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: drift 20s linear infinite;
+            top: 0;
+            right: 0;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
         .hero h1 {
-            font-size: 3.5em;
+            font-size: 2.8em;
             margin-bottom: 20px;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
             line-height: 1.2;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .hero p {
-            font-size: 1.3em;
+            font-size: 1.15em;
             margin-bottom: 40px;
-            opacity: 0.95;
+            opacity: 0.92;
             line-height: 1.8;
+            font-weight: 300;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
         }
 
-        .hero-btn {
-            padding: 18px 45px;
-            border-radius: 10px;
+        .btn {
+            padding: 14px 32px;
+            border-radius: 8px;
             text-decoration: none;
-            font-weight: bold;
+            font-weight: 600;
             transition: all 0.3s;
             border: 2px solid white;
             cursor: pointer;
-            font-size: 1.1em;
+            font-size: 1em;
             display: inline-block;
+            letter-spacing: 0.3px;
         }
 
-        .hero-btn-primary {
+        .btn-primary {
             background: white;
-            color: #667eea;
+            color: #1e3a5f;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
         }
 
-        .hero-btn-primary:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        .btn-primary:hover {
+            background: #f5f5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
         }
 
-        .hero-btn-secondary {
+        .btn-secondary {
             background: transparent;
             color: white;
+            border-color: rgba(255,255,255,0.6);
         }
 
-        .hero-btn-secondary:hover {
+        .btn-secondary:hover {
             background: rgba(255,255,255,0.15);
-            transform: translateY(-4px);
-        }
-
-        .hero-btn-test {
-            background: #ff6b6b;
             border-color: white;
-            color: white;
+            transform: translateY(-2px);
         }
 
-        .hero-btn-test:hover {
-            background: #ff5252;
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(255, 82, 82, 0.3);
+        /* About Section */
+        .about-section {
+            padding: 80px 20px;
+            background: white;
         }
 
-        @keyframes drift {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Container */
-        .container {
-            max-width: 1200px;
+        .about-content {
+            text-align: center;
+            max-width: 750px;
             margin: 0 auto;
-            padding: 0 20px;
         }
 
-        /* Problems Section */
-        .problems-section {
-            padding: 100px 20px;
-            background: white;
+        .about-content h2 {
+            font-size: 2.2em;
+            color: #1e3a5f;
+            margin-bottom: 30px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
-        .section-title {
-            font-size: 2.5em;
-            color: #333;
-            text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-            padding-bottom: 20px;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 2px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: #666;
-            font-size: 1.2em;
-            margin-bottom: 40px;
-        }
-
-        .problems-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-bottom: 60px;
-        }
-
-        .problem-card {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 12px;
-            border-left: 5px solid #ff6b6b;
-            transition: all 0.3s;
-        }
-
-        .problem-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .problem-icon {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-        }
-
-        .problem-card h3 {
-            color: #333;
-            margin-bottom: 12px;
-            font-size: 1.2em;
-        }
-
-        .problem-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Solution Section */
-        .solution-section {
-            padding: 100px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .solution-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .solution-image {
-            text-align: center;
-            font-size: 8em;
-            animation: float 3s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .solution-text h2 {
-            font-size: 2.3em;
-            margin-bottom: 25px;
-            line-height: 1.3;
-        }
-
-        .solution-text p {
+        .about-content p {
             font-size: 1.05em;
-            margin-bottom: 20px;
-            opacity: 0.95;
-            line-height: 1.8;
+            color: #555;
+            margin-bottom: 18px;
+            line-height: 1.9;
+            font-weight: 400;
         }
 
-        .solution-points {
-            list-style: none;
-            margin: 30px 0;
-        }
-
-        .solution-points li {
-            padding: 15px 0;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 1.05em;
-        }
-
-        .solution-points li:before {
-            content: '✓';
-            background: white;
-            color: #667eea;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            flex-shrink: 0;
+        .about-content p:first-of-type {
+            color: #666;
+            font-size: 1.1em;
         }
 
         /* Features Section */
         .features-section {
-            padding: 100px 20px;
-            background: white;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%);
+        }
+
+        .section-title {
+            font-size: 2.2em;
+            color: #1e3a5f;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .features-grid {
@@ -349,348 +208,201 @@
         .feature-card {
             background: white;
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-            border-top: 4px solid #667eea;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(30, 58, 95, 0.08);
+            border-top: 3px solid #1e3a5f;
             transition: all 0.3s;
-            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(42, 79, 127, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            box-shadow: 0 8px 25px rgba(30, 58, 95, 0.15);
+            transform: translateY(-4px);
+            border-top-color: #2a4f7f;
         }
 
         .feature-icon {
-            font-size: 3.5em;
+            font-size: 2.8em;
             margin-bottom: 20px;
             display: block;
         }
 
         .feature-card h3 {
-            color: #333;
-            font-size: 1.4em;
+            color: #1e3a5f;
             margin-bottom: 15px;
+            font-size: 1.3em;
+            font-weight: 600;
+            letter-spacing: -0.3px;
         }
 
         .feature-card p {
             color: #666;
+            font-size: 0.98em;
             line-height: 1.7;
+            font-weight: 400;
         }
 
-        /* Comparison Section */
-        .comparison-section {
-            padding: 100px 20px;
-            background: #f8f9fa;
-        }
-
-        .comparison-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .comparison-card {
-            background: white;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
-        }
-
-        .comparison-card h3 {
-            font-size: 1.5em;
-            color: #333;
-            margin-bottom: 30px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .comparison-list {
-            list-style: none;
-        }
-
-        .comparison-list li {
-            padding: 15px 0;
-            border-bottom: 1px solid #e0e0e0;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: #555;
-        }
-
-        .comparison-list li:last-child {
-            border-bottom: none;
-        }
-
-        .comparison-list li:before {
-            font-size: 1.5em;
-            flex-shrink: 0;
-        }
-
-        .old-card .comparison-list li:before {
-            content: '✗';
-            color: #dc3545;
-        }
-
-        .new-card .comparison-list li:before {
-            content: '✓';
-            color: #28a745;
-        }
-
-        /* How it Works Section */
-        .how-works-section {
-            padding: 100px 20px;
+        /* Process Section */
+        .process-section {
+            padding: 80px 20px;
             background: white;
         }
 
-        .steps-grid {
+        .process-steps {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
             margin-top: 50px;
         }
 
         .step {
             text-align: center;
-            padding: 30px;
+            padding: 35px;
+            background: #f8f9fa;
+            border-radius: 12px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .step:hover {
+            background: white;
+            box-shadow: 0 4px 15px rgba(30, 58, 95, 0.1);
+            transform: translateY(-3px);
         }
 
         .step-number {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a4f7f 100%);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
-            font-weight: bold;
+            font-size: 1.5em;
+            font-weight: 700;
             margin: 0 auto 20px;
+            box-shadow: 0 4px 12px rgba(30, 58, 95, 0.2);
         }
 
         .step h3 {
-            color: #333;
-            margin-bottom: 15px;
-            font-size: 1.2em;
+            color: #1e3a5f;
+            margin-bottom: 12px;
+            font-size: 1.15em;
+            font-weight: 600;
         }
 
         .step p {
             color: #666;
-            line-height: 1.7;
-        }
-
-        /* Benefits Section */
-        .benefits-section {
-            padding: 100px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .benefit-card {
-            background: rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s;
-        }
-
-        .benefit-card:hover {
-            background: rgba(255,255,255,0.15);
-            transform: translateY(-5px);
-        }
-
-        .benefit-icon {
-            font-size: 2.5em;
-            margin-bottom: 15px;
-        }
-
-        .benefit-card h3 {
-            font-size: 1.2em;
-            margin-bottom: 12px;
-        }
-
-        .benefit-card p {
             font-size: 0.95em;
-            opacity: 0.9;
             line-height: 1.6;
-        }
-
-        /* Stats Section */
-        .stats-section {
-            padding: 60px 20px;
-            background: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            text-align: center;
-        }
-
-        .stat-item h3 {
-            font-size: 2.5em;
-            color: #667eea;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        .stat-item p {
-            color: #666;
-            font-size: 1.05em;
         }
 
         /* CTA Section */
         .cta-section {
-            padding: 100px 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3a5f 0%, #2a4f7f 100%);
             color: white;
+            padding: 80px 20px;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
         .cta-section h2 {
-            font-size: 2.5em;
+            font-size: 2.3em;
             margin-bottom: 20px;
-            line-height: 1.3;
+            font-weight: 700;
+            letter-spacing: -0.5px;
         }
 
         .cta-section p {
-            font-size: 1.2em;
+            font-size: 1.1em;
             margin-bottom: 40px;
-            opacity: 0.95;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            opacity: 0.92;
+            line-height: 1.8;
+            font-weight: 300;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
             flex-wrap: wrap;
-        }
-
-        .cta-btn {
-            padding: 16px 40px;
-            border-radius: 10px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            border: 2px solid white;
-            cursor: pointer;
-            font-size: 1em;
-            display: inline-block;
-        }
-
-        .cta-btn-primary {
-            background: white;
-            color: #667eea;
-        }
-
-        .cta-btn-primary:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-        }
-
-        .cta-btn-secondary {
-            background: transparent;
-            color: white;
-        }
-
-        .cta-btn-secondary:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-4px);
         }
 
         /* Footer */
         footer {
-            background: #2c3e50;
-            color: white;
+            background: #1a2d45;
+            color: #aaa;
             text-align: center;
-            padding: 50px 20px;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
 
-        footer h3 {
-            margin-bottom: 20px;
+        footer p {
+            font-size: 0.95em;
+            letter-spacing: 0.3px;
         }
 
-        .footer-links {
-            display: flex;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .footer-links a {
-            color: #bbb;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: white;
-        }
-
-        .footer-copyright {
-            border-top: 1px solid #444;
-            padding-top: 20px;
-            color: #999;
-        }
-
+        /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
                 font-size: 2em;
             }
 
             .hero p {
-                font-size: 1.1em;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-            }
-
-            .hero-btn {
-                width: 100%;
-            }
-
-            .solution-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .comparison-grid {
-                grid-template-columns: 1fr;
+                font-size: 1em;
             }
 
             .section-title {
-                font-size: 2em;
+                font-size: 1.7em;
             }
 
-            nav ul {
-                gap: 1rem;
-                font-size: 0.9em;
-            }
-
-            .nav-buttons {
+            .hero-buttons,
+            .cta-buttons {
                 flex-direction: column;
+            }
+
+            .btn {
                 width: 100%;
             }
 
-            .nav-btn {
-                width: 100%;
-                text-align: center;
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .process-steps {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             }
         }
     </style>
@@ -698,235 +410,116 @@
 <body>
     <!-- Navbar -->
     <nav>
-        <div class="logo">
-            <span>🤖</span>
-            <span>Smart Support</span>
+        <div class="logo"> دستیار مشتری</div>
+        <div>
+            <a href="/login">ورود</a>
         </div>
-        <ul>
-            <li><a href="#features">ویژگی‌ها</a></li>
-            <li><a href="#comparison">مقایسه</a></li>
-            <li><a href="#how">چطور کار می‌کند</a></li>
-            <li class="nav-buttons">
-                <a href="/login" class="nav-btn nav-btn-primary">ورود</a>
-                <a href="/test" class="nav-btn nav-btn-secondary">تور سیستم</a>
-            </li>
-        </ul>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>🤖 دستیار مشتری هوشمند</h1>
-            <p>سیستم یکپارچه برای خدمات پس از فروش، پشتیبانی و مدیریت سفارشات</p>
-            <div class="hero-buttons">
-                <a href="/login" class="hero-btn hero-btn-primary">🚀 شروع کنید</a>
-                <a href="/test" class="hero-btn hero-btn-test">🧪 تور سیستم</a>
-                <a href="#features" class="hero-btn hero-btn-secondary">📚 بیشتر بدانید</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Problems Section -->
-    <section class="problems-section">
         <div class="container">
-            <h2 class="section-title">❌ مشکلات معمول</h2>
-            <p class="section-subtitle">شرکت‌های معمولی با این مسائل روبرو هستند:</p>
-            
-            <div class="problems-grid">
-                <div class="problem-card">
-                    <div class="problem-icon">⏱️</div>
-                    <h3>زمان بیاربر</h3>
-                    <p>پاسخ گیری طول می‌کشد و مشتریان منتظر می‌مانند</p>
-                </div>
-
-                <div class="problem-card">
-                    <div class="problem-icon">👥</div>
-                    <h3>هزینه بالای پرسنل</h3>
-                    <p>نیاز به تیم بزرگ برای پاسخ‌دهی و پشتیبانی</p>
-                </div>
-
-                <div class="problem-card">
-                    <div class="problem-icon">🔀</div>
-                    <h3>بی‌نظمی</h3>
-                    <p>اطلاعات پراکنده و سیستم‌های جداگانه</p>
-                </div>
-
-                <div class="problem-card">
-                    <div class="problem-icon">😞</div>
-                    <h3>عدم رضایت مشتری</h3>
-                    <p>تجربه‌ی ضعیف و پاسخ‌های غیر دقیق</p>
-                </div>
-
-                <div class="problem-card">
-                    <div class="problem-icon">📊</div>
-                    <h3>عدم مراقبت</h3>
-                    <p>نمی‌دانند مشتریان چی نیاز دارند</p>
-                </div>
-
-                <div class="problem-card">
-                    <div class="problem-icon">⚠️</div>
-                    <h3>خطای انسانی</h3>
-                    <p>اشتباهات در مدیریت و پردازش</p>
+            <div class="hero-content">
+                <h1>سیستم دستیار هوشمند برای ارتباط با مشتریان</h1>
+                <p>
+                    یک سیستم جامع برای پاسخگویی سریع، مدیریت سفارشات و حل مسائل مشتریان
+                </p>
+                <div class="hero-buttons">
+                    <a href="/login" class="btn btn-primary">شروع کنید</a>
+                    <a href="#about" class="btn btn-secondary">بیشتر بدانید</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Solution Section -->
-    <section class="solution-section">
+    <!-- About Section -->
+    <section class="about-section" id="about">
         <div class="container">
-            <div class="solution-grid">
-                <div class="solution-image">
-                    ✨🤖💡
-                </div>
-                <div class="solution-text">
-                    <h2>✓ حل: سیستم دستیار هوشمند</h2>
-                    <p>
-                        ما یک سیستم جامع و هوشمند طراحی کرده‌ایم که تمام مسائل را حل می‌کند.
-                    </p>
-                    <ul class="solution-points">
-                        <li>پاسخ فوری 24/7 به تمام سوالات</li>
-                        <li>مدیریت خودکار سفارشات و تیکت‌ها</li>
-                        <li>هوشمند‌ترین سیستم پشتیبانی</li>
-                        <li>کاهش 80% از کار دستی</li>
-                        <li>افزایش رضایت مشتری</li>
-                        <li>کمترین خطای انسانی</li>
-                        <li>تحلیل و گزارش‌های جامع</li>
-                        <li>یکپارچگی کامل</li>
-                    </ul>
-                </div>
+            <div class="about-content">
+                <h2>درباره سیستم</h2>
+                <p>
+                    این سیستم برای کمک به شرکت‌ها در پاسخگویی سریع به مشتریان، بررسی درخواست‌های مرجوعی و تسریع فرایند‌های داخلی طراحی شده است.
+                </p>
+                <p>
+                    با استفاده از هوش مصنوعی، سیستم قادر است سوالات را درک کند، سفارشات را پیگیری کند و راه‌حل‌های مناسب را پیشنهاد دهد.
+                </p>
             </div>
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="features-section" id="features">
+    <section class="features-section">
         <div class="container">
-            <h2 class="section-title">✨ ویژگی‌های اصلی</h2>
+            <h2 class="section-title">امکانات اصلی</h2>
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <span class="feature-icon">💬</span>
-                    <h3>چت هوشمند</h3>
-                    <p>سیستم RAG که می‌فهمد کاربر چی می‌خواهد و پاسخ‌های دقیق می‌دهد</p>
+                    <div class="feature-icon">💬</div>
+                    <h3>پاسخگویی فوری</h3>
+                    <p>پاسخ سریع و دقیق به تمام سوالات مشتریان در کمتر از 2 ثانیه</p>
                 </div>
 
                 <div class="feature-card">
-                    <span class="feature-icon">🔄</span>
-                    <h3>درک اتوماتیک نیت</h3>
-                    <p>سیستم فهمی‌دن نیت کاربر و انجام خودکار کار‌های مورد نیاز</p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">📦</span>
+                    <div class="feature-icon">📦</div>
                     <h3>مدیریت سفارشات</h3>
-                    <p>نمایش، پیگیری و مدیریت تمام سفارشات در یک مکان</p>
+                    <p>پیگیری و بررسی وضعیت سفارشات به صورت خودکار و دقیق</p>
                 </div>
 
                 <div class="feature-card">
-                    <span class="feature-icon">🎫</span>
+                    <div class="feature-icon">↩️</div>
+                    <h3>مدیریت مرجوعی</h3>
+                    <p>پردازش سریع درخواست‌های مرجوعی و بازگشت وجه بلافاصله</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎫</div>
                     <h3>سیستم تیکت</h3>
-                    <p>ایجاد تیکت، اختصاص خودکار و پیگیری وضعیت</p>
+                    <p>ایجاد، اختصاص و پیگیری تیکت‌های پشتیبانی خودکار</p>
                 </div>
 
                 <div class="feature-card">
-                    <span class="feature-icon">⚙️</span>
-                    <h3>اتوماسیون</h3>
-                    <p>ایمیل‌ها، اطلاع‌رسانی‌ها و تمام کار‌های تکراری خودکار</p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">📊</span>
+                    <div class="feature-icon">📊</div>
                     <h3>آنالیتیکس</h3>
-                    <p>گزارش‌های تفصیلی و درک عمیق از رفتار مشتریان</p>
+                    <p>گزارش‌های تفصیلی از فعالیت، مشتریان و میزان رضایت</p>
                 </div>
 
                 <div class="feature-card">
-                    <span class="feature-icon">👤</span>
-                    <h3>پروفایل هوشمند</h3>
-                    <p>مدیریت خودکار اطلاعات کاربر و تاریخچه کامل</p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">🛠️</span>
-                    <h3>پنل ادمین</h3>
-                    <p>کنترل کامل بر سیستم، کاربران و تنظیمات</p>
-                </div>
-
-                <div class="feature-card">
-                    <span class="feature-icon">🔐</span>
-                    <h3>امنیت بالا</h3>
-                    <p>رمزگذاری، احراز هویت و محافظت کامل داده‌ها</p>
+                    <div class="feature-icon">⚙️</div>
+                    <h3>اتوماسیون</h3>
+                    <p>خودکارسازی کار‌های تکراری و فرایندهای پیچیده</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Comparison Section -->
-    <section class="comparison-section" id="comparison">
+    <!-- Process Section -->
+    <section class="process-section">
         <div class="container">
-            <h2 class="section-title">🔄 مقایسه با سیستم‌های معمولی</h2>
+            <h2 class="section-title">فرایند کار</h2>
             
-            <div class="comparison-grid">
-                <div class="comparison-card old-card">
-                    <h3>❌ سیستم‌های معمولی</h3>
-                    <ul class="comparison-list">
-                        <li>فقط چت ساده</li>
-                        <li>نمی‌فهمد نیت کاربر</li>
-                        <li>کار‌های دستی زیاد</li>
-                        <li>پاسخ‌های عمومی</li>
-                        <li>هیچ اتوماسیون</li>
-                        <li>گزارش‌های پایه‌ای</li>
-                        <li>بدون یادگیری</li>
-                        <li>سیستم‌های جداگانه</li>
-                    </ul>
-                </div>
-
-                <div class="comparison-card new-card">
-                    <h3>✓ سیستم ما</h3>
-                    <ul class="comparison-list">
-                        <li>چت هوشمند RAG</li>
-                        <li>فهم نیت و اجرا خودکار</li>
-                        <li>اتوماسیون کامل</li>
-                        <li>پاسخ‌های تخصصی</li>
-                        <li>هزاران کار خودکار</li>
-                        <li>آنالیتیکس جامع</li>
-                        <li>یادگیری مستمر</li>
-                        <li>یکپارچگی کامل</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- How it Works Section -->
-    <section class="how-works-section" id="how">
-        <div class="container">
-            <h2 class="section-title">🔍 چطور کار می‌کند؟</h2>
-            
-            <div class="steps-grid">
+            <div class="process-steps">
                 <div class="step">
                     <div class="step-number">1</div>
-                    <h3>کاربر می‌نویسد</h3>
-                    <p>کاربر سوال یا درخواست خود را مطرح می‌کند</p>
+                    <h3>دریافت درخواست</h3>
+                    <p>مشتری سوال یا درخواست خود را مطرح می‌کند</p>
                 </div>
 
                 <div class="step">
                     <div class="step-number">2</div>
-                    <h3>سیستم درک می‌کند</h3>
-                    <p>AI سیستم نیت و موضوع را تحلیل می‌کند</p>
+                    <h3>تحلیل</h3>
+                    <p>سیستم نیت و موضوع را شناسایی می‌کند</p>
                 </div>
 
                 <div class="step">
                     <div class="step-number">3</div>
-                    <h3>جستجو و بازیابی</h3>
-                    <p>اطلاعات مرتبط از دیتابیس جستجو می‌شود</p>
+                    <h3>جستجو</h3>
+                    <p>اطلاعات و سوابق مرتبط پیدا می‌شود</p>
                 </div>
 
                 <div class="step">
                     <div class="step-number">4</div>
-                    <h3>تولید پاسخ</h3>
-                    <p>پاسخ‌ی هوشمند و تخصصی تولید می‌شود</p>
+                    <h3>پاسخ دهی</h3>
+                    <p>پاسخ هوشمند و شخصی‌شده ارسال می‌شود</p>
                 </div>
 
                 <div class="step">
@@ -938,76 +531,7 @@
                 <div class="step">
                     <div class="step-number">6</div>
                     <h3>اطلاع‌رسانی</h3>
-                    <p>نتیجه و اطلاع‌رسانی‌ها ارسال می‌شود</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section class="benefits-section">
-        <div class="container">
-            <h2 class="section-title">🎯 مزایا و فواید</h2>
-            
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <div class="benefit-icon">⚡</div>
-                    <h3>سرعت فوق‌العاده</h3>
-                    <p>پاسخ‌های فوری در کمتر از 2 ثانیه برای هر سوال</p>
-                </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">💰</div>
-                    <h3>کاهش هزینه</h3>
-                    <p>کاهش 80% از هزینه‌های عملیاتی و پرسنل</p>
-                </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">😊</div>
-                    <h3>رضایت مشتری</h3>
-                    <p>افزایش 95% رضایت مشتری از خدمات</p>
-                </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">📈</div>
-                    <h3>رشد درآمد</h3>
-                    <p>افزایش فروش و درآمد با خدمات بهتر</p>
-                </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">🔒</div>
-                    <h3>امنیت بالا</h3>
-                    <p>محافظت کامل داده‌ها و رمزگذاری</p>
-                </div>
-
-                <div class="benefit-card">
-                    <div class="benefit-icon">📊</div>
-                    <h3>اطلاعات کامل</h3>
-                    <p>درک عمیق از رفتار و نیاز مشتریان</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>99.9%</h3>
-                    <p>بالابودن سیستم</p>
-                </div>
-                <div class="stat-item">
-                    <h3>&lt;2s</h3>
-                    <p>سرعت پاسخ</p>
-                </div>
-                <div class="stat-item">
-                    <h3>24/7</h3>
-                    <p>دسترسی</p>
-                </div>
-                <div class="stat-item">
-                    <h3>1000+</h3>
-                    <p>کار‌های خودکار</p>
+                    <p>نتیجه و اطلاع‌رسانی‌ها به مشتری رسانده می‌شود</p>
                 </div>
             </div>
         </div>
@@ -1016,11 +540,13 @@
     <!-- CTA Section -->
     <section class="cta-section">
         <div class="container">
-            <h2>🚀 آماده شروع هستید؟</h2>
-            <p>همین الآن شروع کنید و تفاوت را احساس کنید</p>
-            <div class="cta-buttons">
-                <a href="/login" class="cta-btn cta-btn-primary">✓ ثبت نام / ورود</a>
-                <a href="/test" class="cta-btn cta-btn-secondary">🧪 تور رایگان</a>
+            <div class="cta-content">
+                <h2>آماده شروع هستید؟</h2>
+                <p>همین الآن وارد شوید و سیستم را تجربه کنید</p>
+                <div class="cta-buttons">
+                    <a href="/login" class="btn btn-primary">ورود / ثبت نام</a>
+                    <a href="#about" class="btn btn-secondary">بیشتر بدانید</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1028,21 +554,7 @@
     <!-- Footer -->
     <footer>
         <div class="container">
-            <h3>🤖 Smart Customer Support</h3>
-            <p style="margin-bottom: 30px; color: #999;">
-                سیستم هوشمند برای خدمات پس از فروش و پشتیبانی مشتری
-            </p>
-            
-            <div class="footer-links">
-                <a href="#">درباره ما</a>
-                <a href="#">تماس با ما</a>
-                <a href="#">سیاست حریم خصوصی</a>
-                <a href="#">شرایط استفاده</a>
-            </div>
-            
-            <div class="footer-copyright">
-                <p>&copy; 2024 Smart Customer Support System. تمام حقوق محفوظ است.</p>
-            </div>
+            <p>&copy; 2024 سیستم دستیار مشتری | تمام حقوق محفوظ است</p>
         </div>
     </footer>
 </body>
